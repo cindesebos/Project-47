@@ -19,7 +19,10 @@ namespace Scripts.Character
         private Transform _cameraHolder;
 
         private float _xRotation = 0f;
+        private bool _isMoving;
         private bool _isRuning;
+        private float _timer = 0f;
+        private Vector3 _cameraHolderOrigin;
 
         public void Initialize(CharacterInput input, CharacterData data, CharacterController controller, Transform cameraHolder)
         {
@@ -27,6 +30,7 @@ namespace Scripts.Character
             _data = data;
             _controller = controller;
             _cameraHolder = cameraHolder;
+            _cameraHolderOrigin = _cameraHolder.localPosition;
 
             InitializeFields();
         }
@@ -57,9 +61,29 @@ namespace Scripts.Character
         {
             Vector2 moveInput = ReadMoveInput();
 
+            if (moveInput.normalized.magnitude != 0) _isMoving = true;
+            else _isMoving = false;
+
             Vector3 direction = (transform.right * moveInput.x + transform.forward * moveInput.y).normalized;
 
             _controller.Move(direction * GetScaledSpeed(GetCurrentSpeed()));
+        }
+
+        public void ApplyHeadBob()
+        {
+            if (_isMoving)
+            {
+                if (_isRuning) _timer += Time.deltaTime * (_bobSpeed + _runSpeed);
+                else _timer += Time.deltaTime * _bobSpeed;
+
+                float sin = Mathf.Sin(_timer);
+                _cameraHolder.localPosition = _cameraHolderOrigin + sin * _bobAmount;
+            }
+            else
+            {
+                _timer = 0f;
+                _cameraHolder.localPosition = Vector3.Lerp(_cameraHolder.localPosition, _cameraHolderOrigin, Time.deltaTime * _bobSpeed);
+            }
         }
 
         private Vector2 ReadMoveInput() => _input.Movement.Move.ReadValue<Vector2>();

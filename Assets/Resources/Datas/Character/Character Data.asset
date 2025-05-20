@@ -12,4 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e871e0fe799918b3b5f8a832664202d, type: 3}
   m_Name: Character Data
   m_EditorClassIdentifier: 
-  <MoveSpeed>k__BackingField: 4
+  <WalkSpeed>k__BackingField: 5
+  <RunSpeed>k__BackingField: 9
+  <MouseSensativity>k__BackingField: 0.05
+  <BobSpeed>k__BackingField: 10
+  <BobAmount>k__BackingField: {x: 0.15, y: 0.05, z: 0}
+  <Gravity>k__BackingField: -9.81
+  <MinPitch>k__BackingField: -80
+  <MaxPitch>k__BackingField: 80

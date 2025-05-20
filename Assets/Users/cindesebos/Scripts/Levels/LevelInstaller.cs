@@ -2,6 +2,7 @@ using System;
 using Scripts.Character;
 using UnityEngine;
 using Zenject;
+using Scripts.Character.Inventory;
 
 namespace Scripts.Levels
 {
@@ -12,8 +13,8 @@ namespace Scripts.Levels
         public override void InstallBindings()
         {
             BindCharacterInput();
-
             BindCharacterData();
+            BindInventory();
         }
 
         private void BindCharacterInput()
@@ -30,6 +31,13 @@ namespace Scripts.Levels
 
             Container.Bind<CharacterData>()
                 .FromInstance(characterData)
+                .AsSingle();
+        }
+
+        private void BindInventory()
+        {
+            Container.Bind<IInventory>()
+                .To<Inventory>()
                 .AsSingle();
         }
     }
