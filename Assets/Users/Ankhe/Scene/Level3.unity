@@ -34430,6 +34430,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: 'breaker_box '
       objectReference: {fileID: 0}
+    - target: {fileID: 1224334470382921504, guid: 9bb5e2cbcf8aa16438e9daaaceded825, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

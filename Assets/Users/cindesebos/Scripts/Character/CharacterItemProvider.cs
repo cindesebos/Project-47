@@ -15,22 +15,25 @@ namespace Scripts.Character
         public List<Item> _selectedItems = new();
 
         public Item _currentSelectedItem;
+        private SphereCollider _sphereCollider;
 
         public void Initialize(Transform cameraOrigin, CharacterData data, IInventory inventory)
         {
             _cameraOrigin = cameraOrigin;
             _rayAreaRadius = data.RayAreaRadius;
             _inventory = inventory;
+
+            _sphereCollider = GetComponent<SphereCollider>();
+            _sphereCollider.radius = _rayAreaRadius;
         }
 
         public void UseItem(InputAction.CallbackContext context)
         {
-            Debug.Log(_inventory + "   " + _currentSelectedItem);
-
             if (_currentSelectedItem == null) return;
             
             if (_inventory.TryAddItem(_currentSelectedItem.Data))
             {
+                
                 Item item = _currentSelectedItem;
 
                 _selectedItems.Remove(item);
@@ -51,6 +54,10 @@ namespace Scripts.Character
 
             foreach (var item in _selectedItems)
             {
+                if (item == null) return;
+
+                item.SetOutlineVisible(false);
+
                 Vector3 toTarget = item.transform.position - ray.origin;
 
                 float dot = Vector3.Dot(ray.direction.normalized, toTarget.normalized);
@@ -62,15 +69,13 @@ namespace Scripts.Character
                     _currentSelectedItem = item;
                 }
             }
+
+            _currentSelectedItem?.SetOutlineVisible(true);
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            Debug.Log(other.gameObject.name);
-            if (other.TryGetComponent(out Item item))
-            {
-                _selectedItems.Add(item);
-            }
+            if (other.TryGetComponent(out Item item) && item.enabled) _selectedItems.Add(item);
         }
 
         private void OnTriggerExit(Collider other)
@@ -78,6 +83,7 @@ namespace Scripts.Character
             if (other.TryGetComponent(out Item item))
             {
                 _selectedItems.Remove(item);
+                item.SetOutlineVisible(false);
             }
         }
     }

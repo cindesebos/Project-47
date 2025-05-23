@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Scripts.Items;
 using UnityEngine;
@@ -6,6 +7,8 @@ namespace Scripts.Character.Inventory
 {
     public class Inventory : IInventory
     {
+        public event Action<ItemData> OnItemPickedUp;
+
         private List<ItemStack> _items = new();
 
         public bool TryAddItem(ItemData item)
@@ -17,6 +20,7 @@ namespace Scripts.Character.Inventory
             if (stack != null) stack.Add();
             else _items.Add(new ItemStack(item));
 
+            OnItemPickedUp?.Invoke(item);
             return true;
         }
 
