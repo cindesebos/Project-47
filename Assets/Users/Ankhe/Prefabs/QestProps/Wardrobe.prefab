@@ -1,0 +1,188 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2367599264878284097
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7278193063473719290}
+  m_Layer: 0
+  m_Name: Wardrobe
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7278193063473719290
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2367599264878284097}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.3, y: 1.3, z: 1.3}
+  m_ConstrainProportionsScale: 1
+  m_Children:
+  - {fileID: 7461874829885706637}
+  - {fileID: 1670008207905331986}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1200128901231312121
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 7278193063473719290}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 02707287f50cf8b4490b36d42cc2e240, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.2268326
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 02707287f50cf8b4490b36d42cc2e240, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.892793
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 02707287f50cf8b4490b36d42cc2e240, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.22590074
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 02707287f50cf8b4490b36d42cc2e240, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 02707287f50cf8b4490b36d42cc2e240, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 02707287f50cf8b4490b36d42cc2e240, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 02707287f50cf8b4490b36d42cc2e240, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 02707287f50cf8b4490b36d42cc2e240, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 02707287f50cf8b4490b36d42cc2e240, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 02707287f50cf8b4490b36d42cc2e240, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 02707287f50cf8b4490b36d42cc2e240, type: 3}
+      propertyPath: m_Name
+      value: Wardrobe_door
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 02707287f50cf8b4490b36d42cc2e240, type: 3}
+--- !u!4 &1670008207905331986 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 02707287f50cf8b4490b36d42cc2e240, type: 3}
+  m_PrefabInstance: {fileID: 1200128901231312121}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &6919603681519826534
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 7278193063473719290}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 344d992de5d366f45a34eb257637d63b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 344d992de5d366f45a34eb257637d63b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 344d992de5d366f45a34eb257637d63b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 344d992de5d366f45a34eb257637d63b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 344d992de5d366f45a34eb257637d63b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 344d992de5d366f45a34eb257637d63b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 344d992de5d366f45a34eb257637d63b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 344d992de5d366f45a34eb257637d63b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 344d992de5d366f45a34eb257637d63b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 344d992de5d366f45a34eb257637d63b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 344d992de5d366f45a34eb257637d63b, type: 3}
+      propertyPath: m_Name
+      value: Wardrobe
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 344d992de5d366f45a34eb257637d63b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6242994854435272902}
+  m_SourcePrefab: {fileID: 100100000, guid: 344d992de5d366f45a34eb257637d63b, type: 3}
+--- !u!4 &7461874829885706637 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 344d992de5d366f45a34eb257637d63b, type: 3}
+  m_PrefabInstance: {fileID: 6919603681519826534}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7838012894128393015 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 344d992de5d366f45a34eb257637d63b, type: 3}
+  m_PrefabInstance: {fileID: 6919603681519826534}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &6242994854435272902
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7838012894128393015}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.49439898, y: 1.7953744, z: 0.53365576}
+  m_Center: {x: 0.020366892, y: 0.89279306, z: 0.053967476}
