@@ -4,24 +4,26 @@ namespace Scripts.UI
 {
     public class CursorHandler : MonoBehaviour
     {
-        [SerializeField] private bool _state = false;
+        [SerializeField] private bool _isVisible = false;
+        [SerializeField] private GameObject _cursorObject;
 
-        private void Start()
-        {
-            SetCursorState(_state);
-        }
+        private void Start() => SetVisibility(_isVisible);
 
-        public void SetCursorState(bool visible)
+        public void SetVisibility(bool visible)
         {
+            _isVisible = visible;
+
             Cursor.visible = visible;
             Cursor.lockState = visible ? CursorLockMode.None : CursorLockMode.Locked;
         }
 
-        public void ToggleCursor()
-        {
-            _state = !_state;
+        public void SetLockState(bool state) => Cursor.lockState = state ? CursorLockMode.Locked : CursorLockMode.None;
 
-            SetCursorState(_state);
+        public void ToggleVisibility()
+        {
+            _isVisible = !_isVisible;
+
+            SetVisibility(_isVisible);
         }
     }
 }

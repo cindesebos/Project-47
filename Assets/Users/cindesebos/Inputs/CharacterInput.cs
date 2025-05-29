@@ -53,6 +53,15 @@ public partial class @CharacterInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Shoot"",
+                    ""type"": ""Button"",
+                    ""id"": ""c0f95990-5ea6-4466-9d1d-54e1c6c9dda3"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -132,6 +141,17 @@ public partial class @CharacterInput: IInputActionCollection2, IDisposable
                     ""action"": ""Sprint"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""75696af3-7474-4ed4-8c0a-33b9442c148b"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Shoot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -143,6 +163,24 @@ public partial class @CharacterInput: IInputActionCollection2, IDisposable
                     ""name"": ""Use"",
                     ""type"": ""Button"",
                     ""id"": ""9cf21e5e-3ea8-4c95-bcf1-9f5f6d94a023"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""GunToggle"",
+                    ""type"": ""Button"",
+                    ""id"": ""ce6731d3-d737-4e0d-b6c8-4da0ff1ea1f4"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""FirstAidKitUsing"",
+                    ""type"": ""Button"",
+                    ""id"": ""20e74cd0-3e55-49db-9bf0-da13fa663449"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -160,6 +198,28 @@ public partial class @CharacterInput: IInputActionCollection2, IDisposable
                     ""action"": ""Use"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fed88b40-ea6f-4b51-9c8e-70e581a46cf9"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""GunToggle"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""026e843c-4faa-4bf6-b47d-a01666aad423"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""FirstAidKitUsing"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -171,9 +231,12 @@ public partial class @CharacterInput: IInputActionCollection2, IDisposable
         m_Movement_Move = m_Movement.FindAction("Move", throwIfNotFound: true);
         m_Movement_Look = m_Movement.FindAction("Look", throwIfNotFound: true);
         m_Movement_Sprint = m_Movement.FindAction("Sprint", throwIfNotFound: true);
+        m_Movement_Shoot = m_Movement.FindAction("Shoot", throwIfNotFound: true);
         // Interaction
         m_Interaction = asset.FindActionMap("Interaction", throwIfNotFound: true);
         m_Interaction_Use = m_Interaction.FindAction("Use", throwIfNotFound: true);
+        m_Interaction_GunToggle = m_Interaction.FindAction("GunToggle", throwIfNotFound: true);
+        m_Interaction_FirstAidKitUsing = m_Interaction.FindAction("FirstAidKitUsing", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -238,6 +301,7 @@ public partial class @CharacterInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Movement_Move;
     private readonly InputAction m_Movement_Look;
     private readonly InputAction m_Movement_Sprint;
+    private readonly InputAction m_Movement_Shoot;
     public struct MovementActions
     {
         private @CharacterInput m_Wrapper;
@@ -245,6 +309,7 @@ public partial class @CharacterInput: IInputActionCollection2, IDisposable
         public InputAction @Move => m_Wrapper.m_Movement_Move;
         public InputAction @Look => m_Wrapper.m_Movement_Look;
         public InputAction @Sprint => m_Wrapper.m_Movement_Sprint;
+        public InputAction @Shoot => m_Wrapper.m_Movement_Shoot;
         public InputActionMap Get() { return m_Wrapper.m_Movement; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -263,6 +328,9 @@ public partial class @CharacterInput: IInputActionCollection2, IDisposable
             @Sprint.started += instance.OnSprint;
             @Sprint.performed += instance.OnSprint;
             @Sprint.canceled += instance.OnSprint;
+            @Shoot.started += instance.OnShoot;
+            @Shoot.performed += instance.OnShoot;
+            @Shoot.canceled += instance.OnShoot;
         }
 
         private void UnregisterCallbacks(IMovementActions instance)
@@ -276,6 +344,9 @@ public partial class @CharacterInput: IInputActionCollection2, IDisposable
             @Sprint.started -= instance.OnSprint;
             @Sprint.performed -= instance.OnSprint;
             @Sprint.canceled -= instance.OnSprint;
+            @Shoot.started -= instance.OnShoot;
+            @Shoot.performed -= instance.OnShoot;
+            @Shoot.canceled -= instance.OnShoot;
         }
 
         public void RemoveCallbacks(IMovementActions instance)
@@ -298,11 +369,15 @@ public partial class @CharacterInput: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Interaction;
     private List<IInteractionActions> m_InteractionActionsCallbackInterfaces = new List<IInteractionActions>();
     private readonly InputAction m_Interaction_Use;
+    private readonly InputAction m_Interaction_GunToggle;
+    private readonly InputAction m_Interaction_FirstAidKitUsing;
     public struct InteractionActions
     {
         private @CharacterInput m_Wrapper;
         public InteractionActions(@CharacterInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @Use => m_Wrapper.m_Interaction_Use;
+        public InputAction @GunToggle => m_Wrapper.m_Interaction_GunToggle;
+        public InputAction @FirstAidKitUsing => m_Wrapper.m_Interaction_FirstAidKitUsing;
         public InputActionMap Get() { return m_Wrapper.m_Interaction; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -315,6 +390,12 @@ public partial class @CharacterInput: IInputActionCollection2, IDisposable
             @Use.started += instance.OnUse;
             @Use.performed += instance.OnUse;
             @Use.canceled += instance.OnUse;
+            @GunToggle.started += instance.OnGunToggle;
+            @GunToggle.performed += instance.OnGunToggle;
+            @GunToggle.canceled += instance.OnGunToggle;
+            @FirstAidKitUsing.started += instance.OnFirstAidKitUsing;
+            @FirstAidKitUsing.performed += instance.OnFirstAidKitUsing;
+            @FirstAidKitUsing.canceled += instance.OnFirstAidKitUsing;
         }
 
         private void UnregisterCallbacks(IInteractionActions instance)
@@ -322,6 +403,12 @@ public partial class @CharacterInput: IInputActionCollection2, IDisposable
             @Use.started -= instance.OnUse;
             @Use.performed -= instance.OnUse;
             @Use.canceled -= instance.OnUse;
+            @GunToggle.started -= instance.OnGunToggle;
+            @GunToggle.performed -= instance.OnGunToggle;
+            @GunToggle.canceled -= instance.OnGunToggle;
+            @FirstAidKitUsing.started -= instance.OnFirstAidKitUsing;
+            @FirstAidKitUsing.performed -= instance.OnFirstAidKitUsing;
+            @FirstAidKitUsing.canceled -= instance.OnFirstAidKitUsing;
         }
 
         public void RemoveCallbacks(IInteractionActions instance)
@@ -344,9 +431,12 @@ public partial class @CharacterInput: IInputActionCollection2, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
         void OnSprint(InputAction.CallbackContext context);
+        void OnShoot(InputAction.CallbackContext context);
     }
     public interface IInteractionActions
     {
         void OnUse(InputAction.CallbackContext context);
+        void OnGunToggle(InputAction.CallbackContext context);
+        void OnFirstAidKitUsing(InputAction.CallbackContext context);
     }
 }

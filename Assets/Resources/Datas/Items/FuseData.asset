@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4871d222c8ae37bfcac1799436e77888, type: 3}
   m_Name: FuseData
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: Fuse
+  <Name>k__BackingField: "\u041F\u0440\u0435\u0434\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u0435\u043B\u044C"
   <Id>k__BackingField: 3
   <OutlineWidth>k__BackingField: 5

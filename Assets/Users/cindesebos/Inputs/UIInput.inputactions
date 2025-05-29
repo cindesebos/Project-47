@@ -1,0 +1,45 @@
+{
+    "name": "UIInput",
+    "maps": [
+        {
+            "name": "Interaction",
+            "id": "814e95a2-b4ca-4e32-ab1c-47c16f10bca8",
+            "actions": [
+                {
+                    "name": "Hide",
+                    "type": "Button",
+                    "id": "fb995b96-f697-4696-8845-90b5fe22d621",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "0bc5b026-fb1a-48f7-ad1a-7d9789df6669",
+                    "path": "<Keyboard>/anyKey",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Hide",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f412d210-a751-4bf4-b8e2-2a0cf297226d",
+                    "path": "<Mouse>/press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Hide",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

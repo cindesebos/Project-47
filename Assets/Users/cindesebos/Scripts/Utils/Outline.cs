@@ -21,7 +21,8 @@ public class Outline : MonoBehaviour
     public Mode OutlineMode
     {
         get { return outlineMode; }
-        set {
+        set
+        {
             outlineMode = value;
             needsUpdate = true;
         }
@@ -31,12 +32,13 @@ public class Outline : MonoBehaviour
     public Color OutlineColor
     {
         get { return outlineColor; }
-        set {
+        set
+        {
             outlineColor = value;
             needsUpdate = true;
         }
     }
-    
+
     [HideInInspector]
     public float OutlineWidth
     {
@@ -49,7 +51,8 @@ public class Outline : MonoBehaviour
     }
 
 
-    [Serializable] private class ListVector3
+    [Serializable]
+    private class ListVector3
     {
         public List<Vector3> data;
     }
@@ -81,11 +84,12 @@ public class Outline : MonoBehaviour
     private bool needsUpdate;
 
 
-    private void Awake ()
+    private void Awake()
     {
         renderers = GetComponentsInChildren<Renderer>();
 
-        if (outlineMaskMaterial == null || outlineFillMaterial == null) {
+        if (outlineMaskMaterial == null || outlineFillMaterial == null)
+        {
             enabled = false;
             return;
         }
@@ -102,19 +106,21 @@ public class Outline : MonoBehaviour
     }
 
 
-    private void OnEnable ()
+    private void OnEnable()
     {
         needsUpdate = true;
 
-        if (!precomputeOutline && bakeKeys.Count != 0 || bakeKeys.Count != bakeValues.Count) {
+        if (!precomputeOutline && bakeKeys.Count != 0 || bakeKeys.Count != bakeValues.Count)
+        {
             bakeKeys.Clear();
             bakeValues.Clear();
         }
 
-        if (precomputeOutline && bakeKeys.Count == 0) {
+        if (precomputeOutline && bakeKeys.Count == 0)
+        {
             Bake();
         }
-        
+
         foreach (var renderer in renderers)
         {
             var materials = renderer.sharedMaterials.ToList();
@@ -127,24 +133,27 @@ public class Outline : MonoBehaviour
     }
 
 
-    private void OnValidate ()
+    private void OnValidate()
     {
         needsUpdate = true;
 
-        if (!precomputeOutline && bakeKeys.Count != 0 || bakeKeys.Count != bakeValues.Count) {
+        if (!precomputeOutline && bakeKeys.Count != 0 || bakeKeys.Count != bakeValues.Count)
+        {
             bakeKeys.Clear();
             bakeValues.Clear();
         }
 
-        if (precomputeOutline && bakeKeys.Count == 0) {
+        if (precomputeOutline && bakeKeys.Count == 0)
+        {
             Bake();
         }
     }
 
 
-    private void Update ()
+    private void Update()
     {
-        if (needsUpdate) {
+        if (needsUpdate)
+        {
             needsUpdate = false;
 
             UpdateMaterialProperties();
@@ -152,9 +161,10 @@ public class Outline : MonoBehaviour
     }
 
 
-    private void OnDisable ()
+    private void OnDisable()
     {
-        foreach (var renderer in renderers) {
+        foreach (var renderer in renderers)
+        {
             var materials = renderer.sharedMaterials.ToList();
 
             materials.Remove(outlineMaskMaterial);
@@ -164,19 +174,21 @@ public class Outline : MonoBehaviour
         }
     }
 
-    private void OnDestroy ()
+    private void OnDestroy()
     {
         Destroy(outlineMaskMaterial);
         Destroy(outlineFillMaterial);
     }
 
 
-    private void Bake ()
+    private void Bake()
     {
         var bakedMeshes = new HashSet<Mesh>();
 
-        foreach (var meshFilter in GetComponentsInChildren<MeshFilter>()) {
-            if (!bakedMeshes.Add(meshFilter.sharedMesh)) {
+        foreach (var meshFilter in GetComponentsInChildren<MeshFilter>())
+        {
+            if (!bakedMeshes.Add(meshFilter.sharedMesh))
+            {
                 continue;
             }
 
@@ -188,71 +200,87 @@ public class Outline : MonoBehaviour
     }
 
 
-    private void LoadSmoothNormals ()
+    private void LoadSmoothNormals()
     {
-        foreach (var meshFilter in GetComponentsInChildren<MeshFilter>()) {
+        foreach (var meshFilter in GetComponentsInChildren<MeshFilter>())
+        {
+            var mesh = meshFilter.sharedMesh;
+            if (!registeredMeshes.Add(mesh))
+                continue;
 
-            if (!registeredMeshes.Add(meshFilter.sharedMesh)) {
+            if (!mesh.isReadable)
+            {
+                Debug.LogWarning($"Mesh '{mesh.name}' is not readable. Enable 'Read/Write' in import settings.");
                 continue;
             }
 
-            var index = bakeKeys.IndexOf(meshFilter.sharedMesh);
-            var smoothNormals = (index >= 0) ? bakeValues[index].data : SmoothNormals(meshFilter.sharedMesh);
+            var index = bakeKeys.IndexOf(mesh);
+            var smoothNormals = (index >= 0) ? bakeValues[index].data : SmoothNormals(mesh);
 
-            meshFilter.sharedMesh.SetUVs(3, smoothNormals);
+            mesh.SetUVs(3, smoothNormals); // UV4
 
             var renderer = meshFilter.GetComponent<Renderer>();
-
-            if (renderer != null) {
-                CombineSubmeshes(meshFilter.sharedMesh, renderer.sharedMaterials);
-            }
+            if (renderer != null)
+                CombineSubmeshes(mesh, renderer.sharedMaterials);
         }
 
-        foreach (var skinnedMeshRenderer in GetComponentsInChildren<SkinnedMeshRenderer>()) {
-            if (!registeredMeshes.Add(skinnedMeshRenderer.sharedMesh)) {
+        foreach (var skinnedMeshRenderer in GetComponentsInChildren<SkinnedMeshRenderer>())
+        {
+            var mesh = skinnedMeshRenderer.sharedMesh;
+            if (!registeredMeshes.Add(mesh))
+                continue;
+
+            if (!mesh.isReadable)
+            {
+                Debug.LogWarning($"Skinned mesh '{mesh.name}' is not readable. Enable 'Read/Write' in import settings.");
                 continue;
             }
 
-            skinnedMeshRenderer.sharedMesh.uv4 = new Vector2[skinnedMeshRenderer.sharedMesh.vertexCount];
-
-            CombineSubmeshes(skinnedMeshRenderer.sharedMesh, skinnedMeshRenderer.sharedMaterials);
+            mesh.uv4 = new Vector2[mesh.vertexCount]; // Optional: convert smoothNormals here if needed
+            CombineSubmeshes(mesh, skinnedMeshRenderer.sharedMaterials);
         }
     }
 
 
-    List<Vector3> SmoothNormals (Mesh mesh)
+    List<Vector3> SmoothNormals(Mesh mesh)
     {
+        if (!mesh.isReadable)
+        {
+            Debug.LogWarning($"Mesh '{mesh.name}' is not readable. Enable Read/Write in import settings to use outline.");
+            return new List<Vector3>(new Vector3[mesh.vertexCount]);
+        }
+
         var groups = mesh.vertices.Select((vertex, index) => new KeyValuePair<Vector3, int>(vertex, index)).GroupBy(pair => pair.Key);
         var smoothNormals = new List<Vector3>(mesh.normals);
 
-        foreach (var group in groups) {
-            if (group.Count() == 1) {
+        foreach (var group in groups)
+        {
+            if (group.Count() == 1)
                 continue;
-            }
 
             var smoothNormal = Vector3.zero;
 
-            foreach (var pair in group) {
+            foreach (var pair in group)
                 smoothNormal += smoothNormals[pair.Value];
-            }
 
             smoothNormal.Normalize();
 
-            foreach (var pair in group) {
+            foreach (var pair in group)
                 smoothNormals[pair.Value] = smoothNormal;
-            }
         }
 
         return smoothNormals;
     }
 
-    private void CombineSubmeshes (Mesh mesh, Material[] materials)
+    private void CombineSubmeshes(Mesh mesh, Material[] materials)
     {
-        if (mesh.subMeshCount == 1) {
+        if (mesh.subMeshCount == 1)
+        {
             return;
         }
 
-        if (mesh.subMeshCount > materials.Length) {
+        if (mesh.subMeshCount > materials.Length)
+        {
             return;
         }
 
@@ -261,11 +289,12 @@ public class Outline : MonoBehaviour
     }
 
 
-    private void UpdateMaterialProperties ()
+    private void UpdateMaterialProperties()
     {
         outlineFillMaterial.SetColor("_OutlineColor", outlineColor);
 
-        switch (outlineMode) {
+        switch (outlineMode)
+        {
             case Mode.OutlineAll:
                 outlineMaskMaterial.SetFloat("_ZTest", (float)UnityEngine.Rendering.CompareFunction.Always);
                 outlineFillMaterial.SetFloat("_ZTest", (float)UnityEngine.Rendering.CompareFunction.Always);

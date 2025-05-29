@@ -26,6 +26,6 @@ namespace Scripts.Items.Types
 
         protected virtual void OnItemPickedUp(ItemData item) { }
 
-        private void ODestroy() => _inventory.OnItemPickedUp -= OnItemPickedUp;
+        private void OnDestroy() => _inventory.OnItemPickedUp -= OnItemPickedUp;
     }
 }

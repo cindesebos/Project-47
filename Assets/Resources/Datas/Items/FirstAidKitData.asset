@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4871d222c8ae37bfcac1799436e77888, type: 3}
   m_Name: FirstAidKitData
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: First aid kit
+  <Name>k__BackingField: "\u0410\u043F\u0442\u0435\u0447\u043A\u0430"
   <Id>k__BackingField: 2
   <OutlineWidth>k__BackingField: 5

@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4871d222c8ae37bfcac1799436e77888, type: 3}
   m_Name: KeycardData
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: Keycard
+  <Name>k__BackingField: "\u041A\u043B\u044E\u0447 \u043A\u0430\u0440\u0442\u0430"
   <Id>k__BackingField: 1
   <OutlineWidth>k__BackingField: 5

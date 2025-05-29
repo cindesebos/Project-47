@@ -1,7 +1,11 @@
-using UnityEngine;
-using Scripts.Items;
+using System;
 using Scripts.Character.Inventory;
+using Scripts.Items;
+using Scripts.UI;
+using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Controls;
+using UnityEngine.UI;
 
 namespace Scripts.Character
 {
@@ -11,27 +15,43 @@ namespace Scripts.Character
         private float _rayDistance;
         private LayerMask _targetLayer;
         private IInventory _inventory;
+        private ArtsToggler _artsToggler;
 
         private Item _currentSelectedItem;
+        public Note _currentSelectedNote;
         private RaycastHit _lastHit;
         private bool _hasHit;
 
-        public void Initialize(Transform cameraOrigin, CharacterData data, IInventory inventory)
+        public void Initialize(Transform cameraOrigin, CharacterData data, IInventory inventory, ArtsToggler artsToggler)
         {
             _cameraOrigin = cameraOrigin;
             _rayDistance = data.RayDistance;
             _targetLayer = data.TargetLayer;
             _inventory = inventory;
+            _artsToggler = artsToggler;
         }
 
         public void UseItem(InputAction.CallbackContext context)
         {
-            if (_currentSelectedItem == null) return;
-
-            if (_inventory.TryAddItem(_currentSelectedItem.Data))
+            if (_currentSelectedItem)
             {
-                Destroy(_currentSelectedItem.gameObject);
-                _currentSelectedItem = null;
+                if (_inventory.TryAddItem(_currentSelectedItem.Data))
+                {
+                    Destroy(_currentSelectedItem.gameObject);
+
+                    _currentSelectedItem = null;
+
+                    return;
+                }
+            }
+
+            if (_currentSelectedNote)
+            {
+                var control = context.control;
+
+                _artsToggler.Show(_currentSelectedNote.Data.Sprite);
+
+                _currentSelectedNote = null;
             }
         }
 
@@ -40,31 +60,51 @@ namespace Scripts.Character
             if (_currentSelectedItem != null)
                 _currentSelectedItem.SetOutlineVisible(false);
 
-            _currentSelectedItem = null;
+            if (_currentSelectedNote != null)
+                _currentSelectedNote.SetOutlineVisible(false);
+
             _hasHit = false;
 
             var ray = new Ray(_cameraOrigin.position, _cameraOrigin.forward);
 
             if (Physics.Raycast(ray, out RaycastHit hit, _rayDistance, _targetLayer))
             {
-                Debug.Log($"Hit: {hit.collider.name} at {hit.point}");
-
-                if (hit.collider.TryGetComponent(out Item item))
+                if (hit.collider.GetComponent<ISelectable>() != null)
                 {
-                    Debug.Log($"Item found: {item.Data.Name}");
+                    if (hit.collider.TryGetComponent(out Item item))
+                    {
+                        Debug.Log($"Item found: {item.Data.Name}");
 
-                    _currentSelectedItem = item;
-                    _currentSelectedItem.SetOutlineVisible(true);
-                    _lastHit = hit;
-                    _hasHit = true;
+                        _currentSelectedItem = item;
+                        _currentSelectedItem.SetOutlineVisible(true);
+                        _lastHit = hit;
+                        _hasHit = true;
+                    }
+
+                    if (hit.collider.TryGetComponent(out Note note))
+                    {
+                        Debug.Log($"Note found: {note.Data}");
+
+                        _currentSelectedNote = note;
+                        _currentSelectedNote.SetOutlineVisible(true);
+
+                        _lastHit = hit;
+                        _hasHit = true;
+                    }
                 }
             }
+            else
+            {
+                _currentSelectedItem = null;
+                _currentSelectedNote = null;
+            }
         }
-        
+
 #if UNITY_EDITOR
         private void OnDrawGizmos()
         {
-            if (_cameraOrigin == null) return;
+            if (_cameraOrigin == null)
+                return;
 
             Gizmos.color = Color.cyan;
             Vector3 rayStart = _cameraOrigin.position;
@@ -77,6 +117,11 @@ namespace Scripts.Character
                 Gizmos.color = Color.green;
                 Gizmos.DrawSphere(_lastHit.point, 0.1f);
             }
+        }
+
+        internal void Initialize(Transform transform, CharacterData data, IInventory inventory)
+        {
+            throw new NotImplementedException();
         }
 #endif
     }

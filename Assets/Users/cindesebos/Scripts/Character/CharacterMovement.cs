@@ -1,4 +1,5 @@
 using System;
+using Scripts.Character;
 using UnityEngine;
 
 namespace Scripts.Character
@@ -23,14 +24,16 @@ namespace Scripts.Character
         private bool _isRuning;
         private float _timer = 0f;
         private Vector3 _cameraHolderOrigin;
+        private bool _canRun;
 
-        public void Initialize(CharacterInput input, CharacterData data, CharacterController controller, Transform cameraHolder)
+        public void Initialize(CharacterInput input, CharacterData data, CharacterController controller, Transform cameraHolder, bool canRun)
         {
             _input = input;
             _data = data;
             _controller = controller;
             _cameraHolder = cameraHolder;
             _cameraHolderOrigin = _cameraHolder.localPosition;
+            _canRun = canRun;
 
             InitializeFields();
         }
@@ -93,6 +96,8 @@ namespace Scripts.Character
         private float GetCurrentSpeed()
         {
             _isRuning = _input.Movement.Sprint.IsPressed();
+            
+            if (!_canRun) _isRuning = false;
 
             return _isRuning ? _runSpeed : _walkSpeed;
         }

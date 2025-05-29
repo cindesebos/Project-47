@@ -9,6 +9,6 @@ namespace Scripts.Items
         [field: SerializeField] public int Id { get; private set; }
         [field: Space(10)]
 
-        [field: SerializeField] public float OutlineWidth { get; private set; }
+        [field: SerializeField] public float OutlineWidth { get; private set; } = 5f;
     }
 }
