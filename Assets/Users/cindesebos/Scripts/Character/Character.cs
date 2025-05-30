@@ -4,6 +4,7 @@ using Scripts.UI;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
 using Zenject;
+using Scripts.Items.Gun;
 
 namespace Scripts.Character
 {
@@ -55,7 +56,7 @@ namespace Scripts.Character
             _artsToggler.OnHide += OnArtHide;
         }
 
-        private void Start()
+        private void Awake()
         {
             _movement.Initialize(_input, _data, _controller, _cameraHolder, _canRun);
             _gravityHandler.Initialize(_data, _controller);
@@ -91,6 +92,8 @@ namespace Scripts.Character
 
         public void ActiveGun()
         {
+            _haveGun = true;
+
             GunShooter.gameObject.SetActive(true);
 
             _hudView.SetGunPanelActive(true);

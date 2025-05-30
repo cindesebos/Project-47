@@ -3,6 +3,7 @@ using Scripts.Character;
 using UnityEngine;
 using Zenject;
 using Scripts.Character.Inventory;
+using Scripts.Utils.Storage;
 using Scripts.Items;
 
 namespace Scripts.Levels
@@ -18,6 +19,7 @@ namespace Scripts.Levels
             BindCharacterData();
             BindCharacter();
             BindInventory();
+            BindStorageService();
         }
 
         private void BindCharacterInput()
@@ -65,6 +67,14 @@ namespace Scripts.Levels
                 .NonLazy();
 
             Container.Bind<ItemsCaller>()
+                .AsSingle()
+                .NonLazy();
+        }
+
+        private void BindStorageService()
+        {
+            Container.Bind<IStorageService>()
+                .To<StorageService>()
                 .AsSingle()
                 .NonLazy();
         }

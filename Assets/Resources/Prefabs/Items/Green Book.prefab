@@ -8,7 +8,6 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-<<<<<<< Updated upstream:Assets/Resources/Prefabs/Items/Green Book.prefab
   - component: {fileID: 6477267438015765369}
   - component: {fileID: 2783809337073478684}
   - component: {fileID: 326621558205648616}
@@ -16,15 +15,6 @@ GameObject:
   - component: {fileID: 7118442095532259745}
   - component: {fileID: 52612312968036665}
   m_Layer: 0
-=======
-  - component: {fileID: 3983275619780294571}
-  - component: {fileID: 4799628110448353910}
-  - component: {fileID: 5551757106320260233}
-  - component: {fileID: 3728641923680449177}
-  - component: {fileID: 2100283473088360404}
-  - component: {fileID: 2347986407194188099}
-  m_Layer: 6
->>>>>>> Stashed changes:Assets/Resources/Prefabs/Green Book.prefab
   m_Name: Green Book
   m_TagString: Untagged
   m_Icon: {fileID: 0}

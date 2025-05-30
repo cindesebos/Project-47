@@ -3,7 +3,7 @@ using Scripts.UI;
 using System;
 using UnityEngine.InputSystem;
 
-namespace Scripts
+namespace Scripts.Items.Gun
 {
     public class GunShooter : MonoBehaviour
     {
@@ -45,7 +45,9 @@ namespace Scripts
 
         public void AddAmmo(int amount) => CurrentAmmoAmount += amount;
 
-        private void OnAmmoAmountChanged() => _hudView.SetAmmoAmount(CurrentAmmoAmount);
+        private void OnAmmoAmountChanged() => _hudView?.SetAmmoAmount(CurrentAmmoAmount);
+
+        public void SetAmmo(int amount) => CurrentAmmoAmount = amount;
 
         private void OnDestroy()
         {

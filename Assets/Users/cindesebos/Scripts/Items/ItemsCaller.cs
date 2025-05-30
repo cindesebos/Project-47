@@ -29,7 +29,7 @@ namespace Scripts.Items
 
         private void OnFirstAidKitUsingPerformed(InputAction.CallbackContext context)
         {
-            _firstAidKitLogic.Remove(1);
+            _firstAidKitLogic.TryRemove(1);
         }
 
         public void Dispose()

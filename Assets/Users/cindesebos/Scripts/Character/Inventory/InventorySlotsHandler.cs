@@ -52,12 +52,7 @@ namespace Scripts.Character.Inventory
 
         private void OnAmmoPickedUp() => _character.GunShooter.AddAmmo(_ammoAmount);
 
-        private void OnFirstAidKitPickedUp()
-        {
-            Debug.Log($"First aid kit picked up. Amount: {_firstAidKitAmount}");
-
-            _firstAidKitLogic.Add(_firstAidKitAmount);
-        }
+        private void OnFirstAidKitPickedUp() => _firstAidKitLogic.Add(_firstAidKitAmount);
 
         public void Dispose()
         {

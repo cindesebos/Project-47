@@ -645,9 +645,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 919132149155446097, guid: afb62aeaaea19e4e5909c40f7e53b14c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2176283478985626692, guid: afb62aeaaea19e4e5909c40f7e53b14c, type: 3}
       propertyPath: m_Name
       value: Character
+      objectReference: {fileID: 0}
+    - target: {fileID: 5038367794370911163, guid: afb62aeaaea19e4e5909c40f7e53b14c, type: 3}
+      propertyPath: _haveGun
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8996303806472728207, guid: afb62aeaaea19e4e5909c40f7e53b14c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4559,6 +4567,10 @@ PrefabInstance:
     - target: {fileID: 716070002862520405, guid: f47b4f4463385df26aae74c3f8b8c31f, type: 3}
       propertyPath: m_Name
       value: System
+      objectReference: {fileID: 0}
+    - target: {fileID: 7601099490728462474, guid: f47b4f4463385df26aae74c3f8b8c31f, type: 3}
+      propertyPath: _needToResetStorage
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -8687,72 +8699,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5d2b65a970efaa641b7941a4957e867d, type: 3}
---- !u!1 &1871136273
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1871136276}
-  - component: {fileID: 1871136275}
-  - component: {fileID: 1871136274}
-  m_Layer: 0
-  m_Name: NextLevelLoader
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1871136274
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1871136273}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b423c92f900729ea81ffe9699bfcd14, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!65 &1871136275
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1871136273}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 2, z: 2}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!4 &1871136276
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1871136273}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.49, y: 0.5, z: -6.15}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1871145619
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10072,15 +10018,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: Green Book
       objectReference: {fileID: 0}
-<<<<<<< Updated upstream
     - target: {fileID: 6477267438015765369, guid: ecd28bd908195b88fa0f153ba463a17d, type: 3}
-=======
-    - target: {fileID: 6036083898075560489, guid: daf41abfbb7560305afe6f89167a2116, type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7358672177666205910, guid: daf41abfbb7560305afe6f89167a2116, type: 3}
->>>>>>> Stashed changes
       propertyPath: m_LocalPosition.x
       value: 4.416
       objectReference: {fileID: 0}
@@ -10133,39 +10071,7 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-<<<<<<< Updated upstream
     - target: {fileID: 232300745136915354, guid: 3e23e36074fde648fa5babee7e0ab9ab, type: 3}
-=======
-    - target: {fileID: 1774014647219683028, guid: 749481ee1c815c2079e6ee58b358c2ec, type: 3}
-      propertyPath: m_Size.x
-      value: 0.16745342
-      objectReference: {fileID: 0}
-    - target: {fileID: 1774014647219683028, guid: 749481ee1c815c2079e6ee58b358c2ec, type: 3}
-      propertyPath: m_Size.y
-      value: 0.20000003
-      objectReference: {fileID: 0}
-    - target: {fileID: 1774014647219683028, guid: 749481ee1c815c2079e6ee58b358c2ec, type: 3}
-      propertyPath: m_Center.x
-      value: -0.033726655
-      objectReference: {fileID: 0}
-    - target: {fileID: 1774014647219683028, guid: 749481ee1c815c2079e6ee58b358c2ec, type: 3}
-      propertyPath: m_Center.y
-      value: -0.000000009685109
-      objectReference: {fileID: 0}
-    - target: {fileID: 1774014647219683028, guid: 749481ee1c815c2079e6ee58b358c2ec, type: 3}
-      propertyPath: m_Center.z
-      value: 0.00000010653623
-      objectReference: {fileID: 0}
-    - target: {fileID: 5706963964311026675, guid: 749481ee1c815c2079e6ee58b358c2ec, type: 3}
-      propertyPath: m_Name
-      value: Gate Access Machine
-      objectReference: {fileID: 0}
-    - target: {fileID: 7426254776444770816, guid: 749481ee1c815c2079e6ee58b358c2ec, type: 3}
-      propertyPath: _door
-      value: 
-      objectReference: {fileID: 8129733291692122876}
-    - target: {fileID: 8083270494801508466, guid: 749481ee1c815c2079e6ee58b358c2ec, type: 3}
->>>>>>> Stashed changes
       propertyPath: m_LocalPosition.x
       value: 4.968
       objectReference: {fileID: 0}
@@ -10286,7 +10192,6 @@ SceneRoots:
   - {fileID: 1016909698}
   - {fileID: 1520083978}
   - {fileID: 638548346}
-<<<<<<< Updated upstream
   - {fileID: 7714757033786591543}
   - {fileID: 7667583335361671037}
   - {fileID: 2119556563457257803}
@@ -10294,7 +10199,3 @@ SceneRoots:
   - {fileID: 1466352988}
   - {fileID: 159498503}
   - {fileID: 538310491}
-=======
-  - {fileID: 6057619547070134262}
-  - {fileID: 1871136276}
->>>>>>> Stashed changes

@@ -4,5 +4,14 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Users/Ankhe/Scene/Level1.unity
+    guid: a35538df03f83e346aacab54672f37f5
+  - enabled: 1
+    path: Assets/Users/Ankhe/Scene/Level2.unity
+    guid: 54f29d85a8bb3dc4e85a30d14571b783
+  - enabled: 1
+    path: Assets/Users/Ankhe/Scene/Level3.unity
+    guid: 176098b0a30669d4194ab06d563f19c1
   m_configObjects: {}

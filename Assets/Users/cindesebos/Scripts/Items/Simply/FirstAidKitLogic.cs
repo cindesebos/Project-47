@@ -37,13 +37,17 @@ namespace Scripts.Items.Simply
             Amount += amount;
         }
 
-        public void Remove(int amount)
+        public bool TryRemove(int amount)
         {
             Debug.Log($"Removing {amount} med kits. Current amount: {Amount}");
 
-            if (Amount <= 0) return;
+            if (Amount <= 0) return false;
 
             Amount -= amount;
+
+            return true;
         }
+
+        public void SetAmount(int amount) => Amount = amount;
     }
 }
