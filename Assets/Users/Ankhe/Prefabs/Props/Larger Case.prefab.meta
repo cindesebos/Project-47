@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 fileFormatVersion: 2
 guid: 51a146c33418f27438d3ce21d7f9575d
 PrefabImporter:
@@ -5,3 +6,12 @@ PrefabImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+=======
+fileFormatVersion: 2
+guid: b8f174a5da7c2dfd6b7e3938db99db50
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+>>>>>>> Stashed changes

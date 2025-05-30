@@ -1,4 +1,5 @@
 using UnityEngine;
+<<<<<<< Updated upstream
 using UnityEngine.SceneManagement;
 using System;
 using Cysharp.Threading.Tasks;
@@ -45,6 +46,36 @@ namespace Scripts.Utils.Loader
             {
                 OnLoadingFinished?.Invoke();
             }
+=======
+using System;
+using UnityEngine.SceneManagement;
+using Cysharp.Threading.Tasks;
+
+namespace Sources.Utils.Loader
+{
+    public class SceneLoader : ISceneLoader
+    {
+        public void LoadNextScene() => LoadNextSceneAsync().Forget();
+
+        public async UniTask LoadNextSceneAsync()
+        {
+            int currentSceneId = SceneManager.GetActiveScene().buildIndex;
+            int nextSceneId = currentSceneId + 1;
+
+            if (nextSceneId >= SceneManager.sceneCountInBuildSettings)
+            {
+                Debug.LogWarning("Next scene not found.");
+                
+                return;
+            }
+
+            AsyncOperation loadSceneOperation = SceneManager.LoadSceneAsync(nextSceneId, LoadSceneMode.Single);
+
+            while (!loadSceneOperation.isDone)
+                await UniTask.Yield();
+
+            SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(nextSceneId));
+>>>>>>> Stashed changes
         }
     }
 }
