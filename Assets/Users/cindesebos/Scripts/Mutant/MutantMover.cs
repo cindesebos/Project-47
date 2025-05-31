@@ -6,19 +6,25 @@ namespace Scripts.Mutant
     public class MutantMover : MonoBehaviour
     {
         [SerializeField] private NavMeshAgent _navMeshAgent;
-        [SerializeField] private float _walkSpeed;
-        [SerializeField] private float _stoppingDistance;
-        [SerializeField] private int _currentPoint = 0;
 
-        [SerializeField] private Transform[] _patrolPoints;
+        private Transform[] _patrolPoints;
+        private float _walkSpeed;
+        private float _stoppingDistance;
+        private int _currentPoint = 0;
+
+        [SerializeField] private Transform _target;
 
         private void OnValidate()
         {
             _navMeshAgent ??= GetComponent<NavMeshAgent>();
         }
 
-        private void Start()
+        public void Initialize(MutantData data, Transform[] patrolPoints)
         {
+            _walkSpeed = data.WalkSpeed;
+            _stoppingDistance = data.StoppingDistance;
+            _patrolPoints = patrolPoints;
+
             if (_patrolPoints.Length <= 0) return;
 
             _navMeshAgent.speed = _walkSpeed;
@@ -28,7 +34,11 @@ namespace Scripts.Mutant
 
         public void Handle()
         {
-            if (!_navMeshAgent.pathPending && _navMeshAgent.remainingDistance <= _stoppingDistance) SetNextPoint();
+            if (_target == null)
+            {
+                if (!_navMeshAgent.pathPending && _navMeshAgent.remainingDistance <= _stoppingDistance) SetNextPoint();
+            }
+            else StartChassing();
         }
 
         private void SetNextPoint()
@@ -39,5 +49,18 @@ namespace Scripts.Mutant
 
             _navMeshAgent.SetDestination(_patrolPoints[_currentPoint].position);
         }
+
+        private void StartChassing()
+        {
+            if (_target == null) return;
+
+            Debug.Log(_target.transform.position);
+
+            _navMeshAgent.SetDestination(_target.position);
+        }
+
+        public void SetChassingTarget(Transform target) => _target = target;
+
+        public void RemoveChassingTarget() => _target = null;
     }
 }

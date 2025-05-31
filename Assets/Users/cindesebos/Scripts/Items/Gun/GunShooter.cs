@@ -58,6 +58,13 @@ namespace Scripts.Items.Gun
             _input.Movement.Shoot.performed += OnShoot;
         }
 
+        private void OnEnable()
+        {
+            if (_input == null) return;
+
+            _input.Movement.Shoot.performed += OnShoot;
+        }
+
         public void OnShoot(InputAction.CallbackContext context)
         {
             if (CurrentAmmoAmount <= 0) return;
@@ -117,7 +124,7 @@ namespace Scripts.Items.Gun
 
         public void SetAmmo(int amount) => CurrentAmmoAmount = amount;
 
-        private void OnDestroy()
+        private void OnDisable()
         {
             if (_input == null) return;
 

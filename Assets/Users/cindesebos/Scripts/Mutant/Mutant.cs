@@ -7,17 +7,23 @@ namespace Scripts.Mutant
         [SerializeField] private MutantData _data;
         [SerializeField] private MutantHealth _health;
         [SerializeField] private MutantMover _mover;
+        [SerializeField] private MutantChaser _chaser;
         [Space]
 
         [SerializeField] private BodyPartDamageMultiplier _headPart;
         [SerializeField] private BodyPartDamageMultiplier _bodyPart;
         [SerializeField] private BodyPartDamageMultiplier[] _armsParts;
         [SerializeField] private BodyPartDamageMultiplier[] _legsParts;
+        [Space]
+
+        [SerializeField] private Transform[] _patrolPoints;
+        [SerializeField] private Transform _eyePosition;
 
         private void OnValidate()
         {
             _health ??= GetComponent<MutantHealth>();
             _mover ??= GetComponent<MutantMover>();
+            _chaser ??= GetComponent<MutantChaser>();
 
             if (_data) InitializeParts();
         }
@@ -27,6 +33,8 @@ namespace Scripts.Mutant
             InitializeParts();
 
             _health.Initialize(_data);
+            _mover.Initialize(_data, _patrolPoints);
+            _chaser.Initialize(_data, _eyePosition, _mover);
         }
 
         private void InitializeParts()
@@ -42,6 +50,7 @@ namespace Scripts.Mutant
         private void Update()
         {
             _mover.Handle();
+            _chaser.Handle();
         }
     }
 }
