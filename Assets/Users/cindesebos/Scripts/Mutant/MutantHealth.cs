@@ -16,6 +16,8 @@ namespace Scripts.Mutant
                 _health = value;
 
                 Debug.Log($"Mutant has {_health} health");
+
+                if (_health <= 0) Destroy(gameObject);
             }
         }
 
