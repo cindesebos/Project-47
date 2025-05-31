@@ -99,6 +99,8 @@ namespace Scripts.Items.Gun
 
         private void OnDestroy()
         {
+            if (_input == null) return;
+
             _input.Movement.Shoot.performed -= OnShoot;
         }
 
