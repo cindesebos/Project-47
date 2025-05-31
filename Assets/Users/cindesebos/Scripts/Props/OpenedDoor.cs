@@ -6,20 +6,12 @@ namespace Scripts.Props
     {
         private void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.GetComponent<Character.Character>())
-            {
-                Debug.Log("Open");
-                Open();
-            }
+            if (other.gameObject.GetComponent<Character.Character>()) Open();
         }
 
         private void OnTriggerExit(Collider other)
         {
-            if (other.gameObject.GetComponent<Character.Character>())
-            {
-                Debug.Log("Close");
-                Close();
-            }
+            if (other.gameObject.GetComponent<Character.Character>()) Close();
         }
     }
 }

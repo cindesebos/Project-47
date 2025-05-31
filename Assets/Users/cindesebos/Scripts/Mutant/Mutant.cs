@@ -1,0 +1,47 @@
+using UnityEngine;
+
+namespace Scripts.Mutant
+{
+    public class Mutant : MonoBehaviour
+    {
+        [SerializeField] private MutantData _data;
+        [SerializeField] private MutantHealth _health;
+        [Space]
+
+        [SerializeField] private BodyPartDamageMultiplier _headPart;
+        [SerializeField] private BodyPartDamageMultiplier _bodyPart;
+        [SerializeField] private BodyPartDamageMultiplier[] _armsParts;
+        [SerializeField] private BodyPartDamageMultiplier[] _legsParts;
+
+        [SerializeField] private bool _hasInitializedParts = false;
+
+        private void OnValidate()
+        {
+            _health ??= GetComponent<MutantHealth>();
+
+            if (!_hasInitializedParts && _data)
+            {
+                InitializeParts();
+
+                _hasInitializedParts = true;
+            }
+        }
+
+        private void Start()
+        {
+            InitializeParts();
+
+            _health.Initialize(_data);
+        }
+
+        private void InitializeParts()
+        {
+            _headPart.Initialize(_data.HeadDamageMultiplier, _data, _health);
+            _bodyPart.Initialize(_data.BodyDamageMultiplier, _data, _health);
+
+            foreach (var armPart in _armsParts) armPart.Initialize(_data.ArmsDamageMultiplier, _data, _health);
+
+            foreach (var legPart in _legsParts) legPart.Initialize(_data.LegsDamageMultiplier, _data, _health);
+        }
+    }
+}
