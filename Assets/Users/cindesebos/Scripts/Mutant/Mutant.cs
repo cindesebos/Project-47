@@ -13,18 +13,11 @@ namespace Scripts.Mutant
         [SerializeField] private BodyPartDamageMultiplier[] _armsParts;
         [SerializeField] private BodyPartDamageMultiplier[] _legsParts;
 
-        [SerializeField] private bool _hasInitializedParts = false;
-
         private void OnValidate()
         {
             _health ??= GetComponent<MutantHealth>();
 
-            if (!_hasInitializedParts && _data)
-            {
-                InitializeParts();
-
-                _hasInitializedParts = true;
-            }
+            if (_data) InitializeParts();
         }
 
         private void Start()
