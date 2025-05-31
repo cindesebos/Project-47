@@ -13,6 +13,8 @@ namespace Scripts.Items.Gun
         [SerializeField] private GunData _data;
         [SerializeField] private Bullet _bulletPrefab;
         [SerializeField] private Transform _spawnPosition;
+        [SerializeField] private ParticleSystem _muzzleFlashParticle;
+        [SerializeField] private LineRenderer _bulletLineRendererPrefab;
 
         private HudView _hudView;
         private CharacterInput _input;
@@ -73,21 +75,39 @@ namespace Scripts.Items.Gun
 
             Vector3 hitPoint;
 
+            _muzzleFlashParticle.Play();
+
             if (Physics.Raycast(origin, direction, out hit, _range))
             {
                 hitPoint = hit.point;
 
                 var bodyPart = hit.collider.GetComponent<BodyPartDamageMultiplier>();
 
-                if (!bodyPart) return;
+                if (bodyPart)
+                {
+                    Debug.Log($"body part is {bodyPart.name}");
 
-                float calculatedDamage = bodyPart.GetCalculatedDamage(Damage);
+                    float calculatedDamage = bodyPart.GetCalculatedDamage(Damage);
 
-                ApplyAttack(bodyPart.MutantHealth, calculatedDamage);
+                    ApplyAttack(bodyPart.MutantHealth, calculatedDamage);
+                }
             }
             else
             {
                 hitPoint = origin + direction * _range;
+            }
+
+            if (_bulletLineRendererPrefab != null)
+            {
+                LineRenderer lineRenderer = Instantiate(_bulletLineRendererPrefab);
+
+                if (lineRenderer != null)
+                {
+                    lineRenderer.SetPosition(0, _spawnPosition.position);
+                    lineRenderer.SetPosition(1, hitPoint);
+                }
+
+                Destroy(lineRenderer.gameObject, 0.05f);
             }
         }
 

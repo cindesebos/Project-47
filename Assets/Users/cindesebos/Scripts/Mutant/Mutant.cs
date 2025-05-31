@@ -6,6 +6,7 @@ namespace Scripts.Mutant
     {
         [SerializeField] private MutantData _data;
         [SerializeField] private MutantHealth _health;
+        [SerializeField] private MutantMover _mover;
         [Space]
 
         [SerializeField] private BodyPartDamageMultiplier _headPart;
@@ -16,6 +17,7 @@ namespace Scripts.Mutant
         private void OnValidate()
         {
             _health ??= GetComponent<MutantHealth>();
+            _mover ??= GetComponent<MutantMover>();
 
             if (_data) InitializeParts();
         }
@@ -35,6 +37,11 @@ namespace Scripts.Mutant
             foreach (var armPart in _armsParts) armPart.Initialize(_data.ArmsDamageMultiplier, _data, _health);
 
             foreach (var legPart in _legsParts) legPart.Initialize(_data.LegsDamageMultiplier, _data, _health);
+        }
+
+        private void Update()
+        {
+            _mover.Handle();
         }
     }
 }
