@@ -22,6 +22,8 @@ namespace Scripts.Safe
             if (_outline.OutlineWidth != 0) _outline.OutlineWidth = 0;
         }
 
+        private void Start() => _outline.OutlineWidth = 0;
+
         private void OnTriggerEnter(Collider collider)
         {
             _outline.OutlineWidth = 5;
