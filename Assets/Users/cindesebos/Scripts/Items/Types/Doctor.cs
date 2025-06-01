@@ -9,19 +9,19 @@ using Scripts.Props;
 namespace Scripts.Items.Types
 {
     [RequireComponent(typeof(Outline))]
-    public class GateAccessMachine : InteractableItem
+    public class Doctor : InteractableItem
     {
-        [SerializeField] private ClosedDoor _door;
+        [SerializeField] private GameObject _modelToShow;
         [SerializeField] private Outline _outline;
 
-        private bool _canOpenDoor = false;
-        private bool _isUsed = false;
+        private bool _canInteract = false;
 
         [Inject] private CharacterInput _characterInput;
 
         private void OnValidate()
         {
             _outline ??= GetComponent<Outline>();
+
             if (_outline.OutlineWidth != 0) _outline.OutlineWidth = 0;
         }
 
@@ -31,34 +31,32 @@ namespace Scripts.Items.Types
         {
             if (_targetItemId != item.Id) return;
 
-            _canOpenDoor = true;
+            _canInteract = true;
         }
 
         private void OnTriggerEnter(Collider collider)
         {
-            if (!collider.gameObject.GetComponent<Character.Character>())
+            if (!collider.gameObject.GetComponent<Character.Character>()) return;
 
             _outline.OutlineWidth = Data.OutlineWidth;
 
-            if (_canOpenDoor) _characterInput.Interaction.Use.performed += Use;
+            if (_canInteract) _characterInput.Interaction.Use.performed += Use;
         }
 
         private void Use(InputAction.CallbackContext context)
         {
-            if (_isUsed) return;
+            _modelToShow.SetActive(true);
 
-            _isUsed = true;
-
-            _door.Open();
+            gameObject.SetActive(false);
         }
 
         private void OnTriggerExit(Collider collider)
         {
-            if (!collider.gameObject.GetComponent<Character.Character>())
-
+            if(!collider.gameObject.GetComponent<Character.Character>())
+            
             _outline.OutlineWidth = 0;
 
-            if (_canOpenDoor) _characterInput.Interaction.Use.performed -= Use;
+            if (_canInteract) _characterInput.Interaction.Use.performed -= Use;
         }
     }
 }

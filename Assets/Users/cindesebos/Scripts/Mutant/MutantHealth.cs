@@ -1,9 +1,12 @@
 using UnityEngine;
+using System;
 
 namespace Scripts.Mutant
 {
     public class MutantHealth : MonoBehaviour, IDamageable
     {
+        public event Action OnAppliedDamage;
+
         private float _health;
 
         public float Health
@@ -30,6 +33,11 @@ namespace Scripts.Mutant
             Health = _data.Health;
         }
 
-        public void ApplyDamage(float damage) => Health -= damage;
+        public void ApplyDamage(float damage)
+        {
+            Health -= damage;
+
+            OnAppliedDamage?.Invoke();
+        }
     }
 }

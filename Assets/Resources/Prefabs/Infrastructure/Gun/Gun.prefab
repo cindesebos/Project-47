@@ -5388,6 +5388,9 @@ MonoBehaviour:
   _spawnPosition: {fileID: 5924656776011775755}
   _muzzleFlashParticle: {fileID: 4788928150570052344}
   _bulletLineRendererPrefab: {fileID: 8400905868130980849, guid: ab3a9360b49419231aa479b4240a8a48, type: 3}
+  _bodyPartsLayer:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!1 &6702089326405885852
 GameObject:
   m_ObjectHideFlags: 0
