@@ -10337,7 +10337,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: f1022a7db799f145ca76ad2356e5438d, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 7f849db3e7b414b45bb625bee436d84f, type: 2}
   m_BuildHeightMesh: 0
 --- !u!4 &439240293
 Transform:
@@ -12076,8 +12076,12 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5038367794370911163, guid: afb62aeaaea19e4e5909c40f7e53b14c, type: 3}
+      propertyPath: _canRun
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5038367794370911163, guid: afb62aeaaea19e4e5909c40f7e53b14c, type: 3}
       propertyPath: _haveGun
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5265329195833432153, guid: afb62aeaaea19e4e5909c40f7e53b14c, type: 3}
       propertyPath: m_IsActive

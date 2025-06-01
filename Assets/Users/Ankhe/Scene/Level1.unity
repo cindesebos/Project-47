@@ -654,6 +654,10 @@ PrefabInstance:
       value: Character
       objectReference: {fileID: 0}
     - target: {fileID: 5038367794370911163, guid: afb62aeaaea19e4e5909c40f7e53b14c, type: 3}
+      propertyPath: _canRun
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5038367794370911163, guid: afb62aeaaea19e4e5909c40f7e53b14c, type: 3}
       propertyPath: _haveGun
       value: 0
       objectReference: {fileID: 0}
