@@ -1,4 +1,5 @@
 using UnityEngine;
+using Zenject;
 
 namespace Scripts.Mutant
 {
@@ -19,6 +20,8 @@ namespace Scripts.Mutant
         [SerializeField] private Transform[] _patrolPoints;
         [SerializeField] private Transform _eyePosition;
 
+        private Character.Character _character;
+
         private void OnValidate()
         {
             _health ??= GetComponent<MutantHealth>();
@@ -28,6 +31,12 @@ namespace Scripts.Mutant
             if (_data) InitializeParts();
         }
 
+        [Inject]
+        private void Construct(Character.Character character)
+        {
+            _character = character;
+        }
+
         private void Start()
         {
             InitializeParts();
@@ -35,6 +44,8 @@ namespace Scripts.Mutant
             _health.Initialize(_data);
             _mover.Initialize(_data, _patrolPoints);
             _chaser.Initialize(_data, _eyePosition, _mover);
+
+            _health.OnAppliedDamage += OnAppliedDamage;
         }
 
         private void InitializeParts()
@@ -47,10 +58,14 @@ namespace Scripts.Mutant
             foreach (var legPart in _legsParts) legPart.Initialize(_data.LegsDamageMultiplier, _data, _health);
         }
 
+        private void OnAppliedDamage() => _chaser.OnAttackedByCharacter(_character.transform);
+
         private void Update()
         {
             _mover.Handle();
             _chaser.Handle();
         }
+
+        private void OnDestroy() => _health.OnAppliedDamage -= OnAppliedDamage;
     }
 }

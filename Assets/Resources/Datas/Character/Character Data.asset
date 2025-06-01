@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Character Data
   m_EditorClassIdentifier: 
   <WalkSpeed>k__BackingField: 5
-  <RunSpeed>k__BackingField: 9
+  <RunSpeed>k__BackingField: 15
   <MouseSensativity>k__BackingField: 0.05
   <RayDistance>k__BackingField: 2
   <TargetLayer>k__BackingField:

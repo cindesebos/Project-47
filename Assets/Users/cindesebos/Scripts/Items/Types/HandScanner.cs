@@ -9,7 +9,7 @@ using Scripts.Props;
 namespace Scripts.Items.Types
 {
     [RequireComponent(typeof(Outline))]
-    public class GateAccessMachine : InteractableItem
+    public class HandScanner : InteractableItem
     {
         [SerializeField] private ClosedDoor _door;
         [SerializeField] private Outline _outline;
