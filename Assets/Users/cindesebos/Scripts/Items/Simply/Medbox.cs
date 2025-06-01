@@ -22,6 +22,8 @@ namespace Scripts.Items.Simply
             if (_outline.OutlineWidth != 0) _outline.OutlineWidth = 0;
         }
 
+        private void Start() => _outline.OutlineWidth = 0;
+
         private void OnTriggerEnter(Collider collider)
         {
             if (!_canOpen) return;

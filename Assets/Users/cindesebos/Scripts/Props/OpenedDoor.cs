@@ -6,12 +6,12 @@ namespace Scripts.Props
     {
         private void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.GetComponent<Character.Character>()) Open();
+            if (other.gameObject.GetComponent<Character.Character>() || other.gameObject.GetComponent<Mutant.Mutant>()) Open();
         }
 
         private void OnTriggerExit(Collider other)
         {
-            if (other.gameObject.GetComponent<Character.Character>()) Close();
+            if (other.gameObject.GetComponent<Character.Character>() || other.gameObject.GetComponent<Mutant.Mutant>()) Close();
         }
     }
 }

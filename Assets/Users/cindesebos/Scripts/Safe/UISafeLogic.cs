@@ -27,11 +27,13 @@ namespace Scripts.Safe
         private string _currentInputValue = "";
 
         private CursorHandler _cursorHandler;
+        private Character.Character _character;
 
         [Inject]
-        private void Construct(CursorHandler cursorHandler)
+        private void Construct(CursorHandler cursorHandler, Character.Character character)
         {
             _cursorHandler = cursorHandler;
+            _character = character;
         }
 
         private void Start()
@@ -46,6 +48,7 @@ namespace Scripts.Safe
         public void OnOpen()
         {
             _cursorHandler.SetVisibility(true);
+            _character.DisableInput();
 
             _view.SetActive(true);
 
@@ -122,6 +125,7 @@ namespace Scripts.Safe
         public void Close()
         {
             _cursorHandler.SetVisibility(false);
+            _character.EnableInput();
 
             _view.SetActive(false);
         }

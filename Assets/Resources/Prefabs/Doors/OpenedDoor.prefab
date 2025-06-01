@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 175714900654923591}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: SM_WallPack_V1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 3084359074103045321}
   - component: {fileID: 3011114914287281766}
   - component: {fileID: 6859335302248915542}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Wall_Door_V1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -192,7 +192,7 @@ GameObject:
   - component: {fileID: 644624440893605574}
   - component: {fileID: 3824729728087226151}
   - component: {fileID: 6345826994999991546}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Wall_Door_V1.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -276,7 +276,7 @@ GameObject:
   - component: {fileID: 6970923403093909164}
   - component: {fileID: 8956286585106283742}
   - component: {fileID: 4679083001767976760}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: SM_Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -378,7 +378,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5754815898300116087}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: SM_DoorPack (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -412,7 +412,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6626166601305445539}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -447,7 +447,7 @@ GameObject:
   - component: {fileID: 8699945859375447125}
   - component: {fileID: 3590448826693584711}
   - component: {fileID: 2263079017324654019}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: SM_Door (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -551,7 +551,7 @@ GameObject:
   - component: {fileID: 6209805241465780647}
   - component: {fileID: 1990181256174370332}
   - component: {fileID: 7473898845741818423}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: OpenedDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -13,6 +13,9 @@ namespace Scripts.Items.Gun
         [SerializeField] private GunData _data;
         [SerializeField] private Bullet _bulletPrefab;
         [SerializeField] private Transform _spawnPosition;
+        [SerializeField] private ParticleSystem _muzzleFlashParticle;
+        [SerializeField] private LineRenderer _bulletLineRendererPrefab;
+        [SerializeField] private LayerMask _bodyPartsLayer;
 
         private HudView _hudView;
         private CharacterInput _input;
@@ -56,6 +59,13 @@ namespace Scripts.Items.Gun
             _input.Movement.Shoot.performed += OnShoot;
         }
 
+        private void OnEnable()
+        {
+            if (_input == null) return;
+
+            _input.Movement.Shoot.performed += OnShoot;
+        }
+
         public void OnShoot(InputAction.CallbackContext context)
         {
             if (CurrentAmmoAmount <= 0) return;
@@ -73,21 +83,41 @@ namespace Scripts.Items.Gun
 
             Vector3 hitPoint;
 
-            if (Physics.Raycast(origin, direction, out hit, _range))
+            _muzzleFlashParticle.Play();
+
+            if (Physics.Raycast(origin, direction, out hit, _range, _bodyPartsLayer))
             {
                 hitPoint = hit.point;
 
                 var bodyPart = hit.collider.GetComponent<BodyPartDamageMultiplier>();
 
-                if (!bodyPart) return;
+                Debug.Log($"shot in {hit.collider.name}");
 
-                float calculatedDamage = bodyPart.GetCalculatedDamage(Damage);
+                if (bodyPart)
+                {
+                    Debug.Log($"body part is {bodyPart.name}");
 
-                ApplyAttack(bodyPart.MutantHealth, calculatedDamage);
+                    float calculatedDamage = bodyPart.GetCalculatedDamage(Damage);
+
+                    ApplyAttack(bodyPart.MutantHealth, calculatedDamage);
+                }
             }
             else
             {
                 hitPoint = origin + direction * _range;
+            }
+
+            if (_bulletLineRendererPrefab != null)
+            {
+                LineRenderer lineRenderer = Instantiate(_bulletLineRendererPrefab);
+
+                if (lineRenderer != null)
+                {
+                    lineRenderer.SetPosition(0, _spawnPosition.position);
+                    lineRenderer.SetPosition(1, hitPoint);
+                }
+
+                Destroy(lineRenderer.gameObject, 0.05f);
             }
         }
 
@@ -97,7 +127,7 @@ namespace Scripts.Items.Gun
 
         public void SetAmmo(int amount) => CurrentAmmoAmount = amount;
 
-        private void OnDestroy()
+        private void OnDisable()
         {
             if (_input == null) return;
 

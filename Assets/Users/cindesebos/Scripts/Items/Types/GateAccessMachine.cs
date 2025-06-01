@@ -25,6 +25,8 @@ namespace Scripts.Items.Types
             if (_outline.OutlineWidth != 0) _outline.OutlineWidth = 0;
         }
 
+        private void Start() => _outline.OutlineWidth = 0;
+
         protected override void OnItemPickedUp(ItemData item)
         {
             if (_targetItemId != item.Id) return;
@@ -34,12 +36,11 @@ namespace Scripts.Items.Types
 
         private void OnTriggerEnter(Collider collider)
         {
+            if (!collider.gameObject.GetComponent<Character.Character>())
+
             _outline.OutlineWidth = Data.OutlineWidth;
 
-            if (_canOpenDoor && collider.gameObject.GetComponent<Character.Character>())
-            {
-                _characterInput.Interaction.Use.performed += Use;
-            }
+            if (_canOpenDoor) _characterInput.Interaction.Use.performed += Use;
         }
 
         private void Use(InputAction.CallbackContext context)
@@ -53,12 +54,11 @@ namespace Scripts.Items.Types
 
         private void OnTriggerExit(Collider collider)
         {
+            if (!collider.gameObject.GetComponent<Character.Character>())
+
             _outline.OutlineWidth = 0;
 
-            if (_canOpenDoor && collider.gameObject.GetComponent<Character.Character>())
-            {
-                _characterInput.Interaction.Use.performed -= Use;
-            }
+            if (_canOpenDoor) _characterInput.Interaction.Use.performed -= Use;
         }
     }
 }

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 214130412347782519}
   - component: {fileID: 5586498757347224404}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: ClosedDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -64,7 +64,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2338212656386919941, guid: 950c1b30bc1ba6b4483351ec49b2fed3, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3412288626935786298, guid: 950c1b30bc1ba6b4483351ec49b2fed3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -108,7 +108,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3474768157984426324, guid: 950c1b30bc1ba6b4483351ec49b2fed3, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3474768157984426324, guid: 950c1b30bc1ba6b4483351ec49b2fed3, type: 3}
       propertyPath: m_IsActive
@@ -120,15 +120,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4111250501131505282, guid: 950c1b30bc1ba6b4483351ec49b2fed3, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6815226633167950553, guid: 950c1b30bc1ba6b4483351ec49b2fed3, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7101152053098461730, guid: 950c1b30bc1ba6b4483351ec49b2fed3, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -258,7 +258,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -7537219336204663481, guid: b97b7bf46ef66584fa4f772b53670bdd, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7537219336204663481, guid: b97b7bf46ef66584fa4f772b53670bdd, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -290,7 +290,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: b97b7bf46ef66584fa4f772b53670bdd, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: b97b7bf46ef66584fa4f772b53670bdd, type: 3}
       propertyPath: m_StaticEditorFlags
