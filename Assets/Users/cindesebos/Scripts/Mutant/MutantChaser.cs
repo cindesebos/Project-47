@@ -11,13 +11,14 @@ namespace Scripts.Mutant
         private LayerMask _characterLayer;
 
         private MutantMover _mover;
-        private Character.Character _character;
 
         private Transform _currentTarget;
-        private float _lostTargetTimer = 0f;
         private float _maxLostTargetTime = 5f;
+        [SerializeField] private float _lostTargetTimer = 0f;
 
-        private bool _isChasing = false;
+        [SerializeField] private bool _isChasing = false;
+        [SerializeField] private bool _isCharacterBehihd = false;
+        [SerializeField] private bool _isAttackedByCharacter = false;
 
         public void Initialize(MutantData data, Transform eyePosition, MutantMover mover)
         {
@@ -32,7 +33,7 @@ namespace Scripts.Mutant
 
         public void Handle()
         {
-            if (TryFindTarget())
+            if (TryFindTarget() || _isCharacterBehihd || _isAttackedByCharacter)
             {
                 _lostTargetTimer = 0f;
                 if (!_isChasing)
@@ -41,6 +42,9 @@ namespace Scripts.Mutant
                     _mover.SetChassingTarget(_currentTarget);
                     Debug.Log("Start chasing target");
                 }
+
+                _isCharacterBehihd = false;
+                _isAttackedByCharacter = false;
             }
             else if (_isChasing)
             {
@@ -49,11 +53,26 @@ namespace Scripts.Mutant
                 if (_lostTargetTimer >= _maxLostTargetTime)
                 {
                     StopChasing();
+
+                    _isCharacterBehihd = false;
                 }
                 else
                 {
                     if (_currentTarget != null) _mover.SetChassingTarget(_currentTarget);
                 }
+            }
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+           
+            if (other.gameObject.GetComponent<Character.Character>())
+            {
+                Debug.Log("Character is found: ");
+
+                _isCharacterBehihd = true;
+
+                _currentTarget = other.transform;
             }
         }
 
@@ -68,13 +87,12 @@ namespace Scripts.Mutant
 
                 if (angle < _visionAngle / 2f)
                 {
-                    if (Physics.Raycast(_eyePosition.position, directionToTarget, out RaycastHit raycastHit, _visionRange))
+                    if (Physics.Raycast(_eyePosition.position, directionToTarget, out RaycastHit raycastHit, _visionRange, _characterLayer))
                     {
                         if (raycastHit.collider == hit)
                         {
                             if (hit.TryGetComponent(out Character.Character character))
                             {
-                                _character = character;
                                 _currentTarget = hit.transform;
                                 Debug.Log($"Target spotted: {_currentTarget.name}");
                                 return true;
@@ -87,12 +105,19 @@ namespace Scripts.Mutant
             return false;
         }
 
+        public void OnAttackedByCharacter(Transform target)
+        {
+            _currentTarget = target;
+
+            _isAttackedByCharacter = true;
+        }
+
         private void StopChasing()
         {
             _isChasing = false;
 
             _currentTarget = null;
-            
+
             _mover.RemoveChassingTarget();
         }
 

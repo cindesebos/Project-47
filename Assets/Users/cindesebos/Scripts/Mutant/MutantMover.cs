@@ -25,9 +25,9 @@ namespace Scripts.Mutant
             _stoppingDistance = data.StoppingDistance;
             _patrolPoints = patrolPoints;
 
-            if (_patrolPoints.Length <= 0) return;
-
             _navMeshAgent.speed = _walkSpeed;
+
+            if (_patrolPoints.Length <= 0) return;
 
             _navMeshAgent.SetDestination(_patrolPoints[_currentPoint].position);
         }

@@ -15,6 +15,7 @@ namespace Scripts.Items.Gun
         [SerializeField] private Transform _spawnPosition;
         [SerializeField] private ParticleSystem _muzzleFlashParticle;
         [SerializeField] private LineRenderer _bulletLineRendererPrefab;
+        [SerializeField] private LayerMask _bodyPartsLayer;
 
         private HudView _hudView;
         private CharacterInput _input;
@@ -84,11 +85,13 @@ namespace Scripts.Items.Gun
 
             _muzzleFlashParticle.Play();
 
-            if (Physics.Raycast(origin, direction, out hit, _range))
+            if (Physics.Raycast(origin, direction, out hit, _range, _bodyPartsLayer))
             {
                 hitPoint = hit.point;
 
                 var bodyPart = hit.collider.GetComponent<BodyPartDamageMultiplier>();
+
+                Debug.Log($"shot in {hit.collider.name}");
 
                 if (bodyPart)
                 {

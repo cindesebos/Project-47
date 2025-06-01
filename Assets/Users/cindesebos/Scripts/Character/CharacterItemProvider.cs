@@ -118,11 +118,6 @@ namespace Scripts.Character
                 Gizmos.DrawSphere(_lastHit.point, 0.1f);
             }
         }
-
-        internal void Initialize(Transform transform, CharacterData data, IInventory inventory)
-        {
-            throw new NotImplementedException();
-        }
 #endif
     }
 }
