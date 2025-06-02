@@ -30,6 +30,8 @@ namespace Scripts.Items.Types
             _artsToggler = artsToggler;
         }
 
+        private void Start() => _outline.OutlineWidth = 0;
+
         private void OnValidate()
         {
             _outline ??= GetComponent<Outline>();

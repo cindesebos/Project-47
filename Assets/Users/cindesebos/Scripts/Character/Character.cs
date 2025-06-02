@@ -52,8 +52,8 @@ namespace Scripts.Character
             _input.Enable();
 
             _input.Interaction.Use.performed += _itemProvider.UseItem;
-            _artsToggler.OnShow += OnArtShow;
-            _artsToggler.OnHide += OnArtHide;
+            _artsToggler.OnShow += DisableInput;
+            _artsToggler.OnHide += EnableInput;
         }
 
         private void Awake()
@@ -79,9 +79,9 @@ namespace Scripts.Character
             _gravityHandler.Handle();
         }
 
-        private void OnArtShow() => _input.Disable();
+        public void DisableInput() => _input.Disable();
 
-        private void OnArtHide() => EnableInputNextFrame();
+        public void EnableInput() => EnableInputNextFrame();
 
         private async UniTaskVoid EnableInputNextFrame()
         {
@@ -110,8 +110,8 @@ namespace Scripts.Character
 
         private void OnDisable()
         {
-            _artsToggler.OnShow -= OnArtShow;
-            _artsToggler.OnHide -= OnArtHide;
+            _artsToggler.OnShow -= DisableInput;
+            _artsToggler.OnHide -= EnableInput;
             _input.Interaction.Use.performed -= _itemProvider.UseItem;
 
             _input.Disable();
