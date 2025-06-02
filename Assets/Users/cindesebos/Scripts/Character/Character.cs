@@ -15,6 +15,7 @@ namespace Scripts.Character
         [SerializeField] private bool _haveGun = false;
 
         [field: SerializeField] public GunShooter GunShooter { get; private set; }
+        [field: SerializeField] public AudioSource AudioSource { get; private set; }
         [SerializeField] private Camera _targetCamera;
         [SerializeField] private CharacterMovement _movement;
         [SerializeField] private CharacterController _controller;
@@ -31,6 +32,7 @@ namespace Scripts.Character
         private void OnValidate()
         {
             _movement ??= GetComponent<CharacterMovement>();
+            AudioSource ??= GetComponentInChildren<AudioSource>();
             _controller ??= GetComponent<CharacterController>();
             _gravityHandler ??= GetComponent<CharacterGravityHandler>();
             _itemProvider ??= GetComponentInChildren<CharacterItemProvider>();

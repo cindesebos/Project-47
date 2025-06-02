@@ -14,6 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <WalkSpeed>k__BackingField: 2.5
   <Health>k__BackingField: 50
+  <Damage>k__BackingField: 1
+  <DetectionRadius>k__BackingField: 1.25
+  <AttackRadius>k__BackingField: 1.55
   <HeadDamageMultiplier>k__BackingField: 3
   <BodyDamageMultiplier>k__BackingField: 1
   <ArmsDamageMultiplier>k__BackingField: 0.5

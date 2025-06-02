@@ -4,23 +4,26 @@ using Scripts.UI;
 using Scripts.Utils.Loader;
 using System;
 using Scripts.Items.Simply;
+using Scripts.Sounds;
 
 namespace Scripts.Project
 {
     public class ProjectInstaller : MonoInstaller
     {
-        [SerializeField] private ArtsToggler _artsToggler;
         [SerializeField] private CursorHandler _cursorHandler;
         [SerializeField] private HudView _hudView;
+        [SerializeField] private SoundsContainer _soundsContainer;
+        [SerializeField] private BackGroundMusicPlayer _backGroundMusicPlayer;
 
         public override void InstallBindings()
         {
+            BindSoundsContainer();
             BindFirstAidKitLogic();
             BindUIInput();
-            BindArtsHandler();
             BindLevelLoader();
             BindCursorHandler();
             BindHudView();
+            BindBackGroundMusicPlayer();
         }
 
         private void BindFirstAidKitLogic()
@@ -33,13 +36,6 @@ namespace Scripts.Project
         private void BindUIInput()
         {
             Container.BindInterfacesAndSelfTo<UIInput>()
-                .AsSingle();
-        }
-
-        private void BindArtsHandler()
-        {
-            Container.Bind<ArtsToggler>()
-                .FromInstance(_artsToggler)
                 .AsSingle();
         }
 
@@ -61,6 +57,20 @@ namespace Scripts.Project
         {
             Container.Bind<HudView>()
                 .FromInstance(_hudView)
+                .AsSingle();
+        }
+
+        private void BindSoundsContainer()
+        {
+            Container.Bind<SoundsContainer>()
+                .FromInstance(_soundsContainer)
+                .AsSingle();
+        }
+
+        private void BindBackGroundMusicPlayer()
+        {
+            Container.Bind<BackGroundMusicPlayer>()
+                .FromInstance(_backGroundMusicPlayer)
                 .AsSingle();
         }
     }

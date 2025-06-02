@@ -5,6 +5,7 @@ using Scripts.Items;
 using UnityEngine.InputSystem;
 using System;
 using Scripts.Props;
+using Scripts.Sounds;
 
 namespace Scripts.Items.Types
 {
@@ -12,17 +13,28 @@ namespace Scripts.Items.Types
     public class BreakerBox : InteractableItem
     {
         [SerializeField] private ClosedDoor _door;
+        [SerializeField] private AudioSource _audioSource;
         [SerializeField] private Outline _outline;
 
         private bool _canOpenDoor = false;
         private bool _isUsed = false;
 
-        [Inject] private CharacterInput _characterInput;
+        private CharacterInput _characterInput;
+        private SoundsContainer _soundsContainer;
 
         private void OnValidate()
         {
             _outline ??= GetComponent<Outline>();
+            _audioSource ??= GetComponent<AudioSource>();
+
             if (_outline.OutlineWidth != 0) _outline.OutlineWidth = 0;
+        }
+
+        [Inject]
+        private void Construct(SoundsContainer soundsContainer, CharacterInput characterInput)
+        {
+            _characterInput = characterInput; 
+            _soundsContainer = soundsContainer;
         }
 
         private void Start() => _outline.OutlineWidth = 0;
@@ -36,7 +48,7 @@ namespace Scripts.Items.Types
 
         private void OnTriggerEnter(Collider collider)
         {
-            if (!collider.gameObject.GetComponent<Character.Character>()) return;
+            if (!collider.gameObject.GetComponent<Character.Character>() && _isUsed) return;
 
             _outline.OutlineWidth = Data.OutlineWidth;
 
@@ -48,13 +60,15 @@ namespace Scripts.Items.Types
             if (_isUsed) return;
 
             _isUsed = true;
+            _audioSource.PlayOneShot(_soundsContainer.FuseChangingSound);
+            _outline.OutlineWidth = 0;
 
             _door.Open();
         }
 
         private void OnTriggerExit(Collider collider)
         {
-            if(!collider.gameObject.GetComponent<Character.Character>())
+            if (!collider.gameObject.GetComponent<Character.Character>()) return;
             
             _outline.OutlineWidth = 0;
 
