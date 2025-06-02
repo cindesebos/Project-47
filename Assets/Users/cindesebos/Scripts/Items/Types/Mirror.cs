@@ -53,6 +53,8 @@ namespace Scripts.Items.Types
 
         private void OnTriggerEnter(Collider collider)
         {
+            if (_isUsed) return;
+
             _outline.OutlineWidth = Data.OutlineWidth;
 
             if (_canUse && collider.gameObject.GetComponent<Character.Character>())
@@ -71,6 +73,7 @@ namespace Scripts.Items.Types
 
             _brokenPart.SetActive(true);
             _partToBreak.SetActive(false);
+            _outline.OutlineWidth = 0;
 
             _audioSource.PlayOneShot(_soundsContainer.BrokingWindowSound);
         }

@@ -65,7 +65,6 @@ namespace Scripts.Mutant
 
         private void OnTriggerEnter(Collider other)
         {
-           
             if (other.gameObject.GetComponent<Character.Character>())
             {
                 Debug.Log("Character is found: ");
@@ -94,7 +93,6 @@ namespace Scripts.Mutant
                             if (hit.TryGetComponent(out Character.Character character))
                             {
                                 _currentTarget = hit.transform;
-                                Debug.Log($"Target spotted: {_currentTarget.name}");
                                 return true;
                             }
                         }

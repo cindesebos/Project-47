@@ -48,7 +48,7 @@ namespace Scripts.Items.Types
 
         private void OnTriggerEnter(Collider collider)
         {
-            if (!collider.gameObject.GetComponent<Character.Character>()) return;
+            if (!collider.gameObject.GetComponent<Character.Character>() && _isUsed) return;
 
             _outline.OutlineWidth = Data.OutlineWidth;
 
@@ -61,13 +61,14 @@ namespace Scripts.Items.Types
 
             _isUsed = true;
             _audioSource.PlayOneShot(_soundsContainer.FuseChangingSound);
+            _outline.OutlineWidth = 0;
 
             _door.Open();
         }
 
         private void OnTriggerExit(Collider collider)
         {
-            if(!collider.gameObject.GetComponent<Character.Character>())
+            if (!collider.gameObject.GetComponent<Character.Character>()) return;
             
             _outline.OutlineWidth = 0;
 

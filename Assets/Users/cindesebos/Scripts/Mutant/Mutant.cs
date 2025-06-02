@@ -9,6 +9,9 @@ namespace Scripts.Mutant
         [SerializeField] private MutantHealth _health;
         [SerializeField] private MutantMover _mover;
         [SerializeField] private MutantChaser _chaser;
+        [SerializeField] private MutantAttacker _attacker;
+        [SerializeField] private MutantView _view;
+        [SerializeField] private Animator _animator;
         [Space]
 
         [SerializeField] private BodyPartDamageMultiplier _headPart;
@@ -21,12 +24,16 @@ namespace Scripts.Mutant
         [SerializeField] private Transform _eyePosition;
 
         private Character.Character _character;
+        [SerializeField] private bool _isAttacking;
 
         private void OnValidate()
         {
             _health ??= GetComponent<MutantHealth>();
             _mover ??= GetComponent<MutantMover>();
             _chaser ??= GetComponent<MutantChaser>();
+            _attacker ??= GetComponent<MutantAttacker>();
+            _view ??= GetComponent<MutantView>();
+            _animator ??= GetComponent<Animator>();
 
             if (_data) InitializeParts();
         }
@@ -44,8 +51,12 @@ namespace Scripts.Mutant
             _health.Initialize(_data);
             _mover.Initialize(_data, _patrolPoints);
             _chaser.Initialize(_data, _eyePosition, _mover);
+            _attacker.Initialize(_data);
+            _view.Initialize(_animator, _attacker);
 
             _health.OnAppliedDamage += OnAppliedDamage;
+            _attacker.OnAttackStarted += OnAttackStarted;
+            _attacker.OnAttackFinished += OnAttackFinished;
         }
 
         private void InitializeParts()
@@ -60,12 +71,28 @@ namespace Scripts.Mutant
 
         private void OnAppliedDamage() => _chaser.OnAttackedByCharacter(_character.transform);
 
+        private void OnAttackStarted()
+        {
+            _isAttacking = true;
+
+            _mover.Stay();
+        }
+
+        private void OnAttackFinished() => _isAttacking = false;
+
         private void Update()
         {
+            if (_isAttacking) return;
+
             _mover.Handle();
             _chaser.Handle();
         }
 
-        private void OnDestroy() => _health.OnAppliedDamage -= OnAppliedDamage;
+        private void OnDestroy()
+        {
+            _health.OnAppliedDamage -= OnAppliedDamage;
+            _attacker.OnAttackStarted -= OnAttackStarted;
+            _attacker.OnAttackFinished -= OnAttackFinished;
+        }
     }
 }

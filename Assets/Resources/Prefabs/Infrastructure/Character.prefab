@@ -233,6 +233,7 @@ GameObject:
   - component: {fileID: 3778244073873960355}
   - component: {fileID: 2613422034959402406}
   - component: {fileID: 5038367794370911163}
+  - component: {fileID: 6481752066641363426}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -331,6 +332,18 @@ MonoBehaviour:
   _gravityHandler: {fileID: 2613422034959402406}
   _itemProvider: {fileID: 3484630958555831194}
   _cameraHolder: {fileID: 1511289415816594212}
+--- !u!114 &6481752066641363426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2176283478985626692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb08dad9a5a6507aaa8c181d97f8664e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2869668138723063951
 GameObject:
   m_ObjectHideFlags: 0
@@ -638,6 +651,18 @@ PrefabInstance:
     - target: {fileID: 5726381041786605219, guid: 33ba3112d55705ec3a81df7afa445ac9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -3.892
+      objectReference: {fileID: 0}
+    - target: {fileID: 5924656776011775755, guid: 33ba3112d55705ec3a81df7afa445ac9, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5924656776011775755, guid: 33ba3112d55705ec3a81df7afa445ac9, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5924656776011775755, guid: 33ba3112d55705ec3a81df7afa445ac9, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 12.89
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

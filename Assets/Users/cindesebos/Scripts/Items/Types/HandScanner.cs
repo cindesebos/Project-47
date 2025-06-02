@@ -36,9 +36,11 @@ namespace Scripts.Items.Types
 
         private void OnTriggerEnter(Collider collider)
         {
+            if (_isUsed) return;
+            
             if (!collider.gameObject.GetComponent<Character.Character>())
 
-            _outline.OutlineWidth = Data.OutlineWidth;
+                _outline.OutlineWidth = Data.OutlineWidth;
 
             if (_canOpenDoor) _characterInput.Interaction.Use.performed += Use;
         }
@@ -50,6 +52,7 @@ namespace Scripts.Items.Types
             _isUsed = true;
 
             _door.Open();
+            _outline.OutlineWidth = 0;
         }
 
         private void OnTriggerExit(Collider collider)
