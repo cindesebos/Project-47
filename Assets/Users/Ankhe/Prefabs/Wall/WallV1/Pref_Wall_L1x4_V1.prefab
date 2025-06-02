@@ -84,6 +84,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -1839020613715481836, guid: b97b7bf46ef66584fa4f772b53670bdd, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: b97b7bf46ef66584fa4f772b53670bdd, type: 3}
       propertyPath: m_Name
       value: SM_WallPack_V1

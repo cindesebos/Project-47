@@ -51,13 +51,14 @@ Material:
     - _Glossiness: 0.5
     - _GlossyReflections: 1
     - _Parallax: 0.02
+    - _Smoothness: 1
     - _SrcBlend: 2
     - _SrcBlendAlpha: 0
     - _Surface: 1
     - _WorkflowMode: 0
     - _ZWrite: 0
     m_Colors:
-    - _BaseColor: {r: 0.5377358, g: 0.5377358, b: 0.5377358, a: 1}
-    - _Color: {r: 0.53773576, g: 0.53773576, b: 0.53773576, a: 1}
-    - _SpecColor: {r: 0.37376937, g: 0.37037206, b: 0.38679248, a: 1}
+    - _BaseColor: {r: 0.058072258, g: 0.28625125, b: 0.8207547, a: 1}
+    - _Color: {r: 0.05807224, g: 0.2862512, b: 0.8207547, a: 1}
+    - _SpecColor: {r: 0.5188679, g: 0.5188679, b: 0.5188679, a: 1}
   m_BuildTextureStacks: []
