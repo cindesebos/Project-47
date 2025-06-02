@@ -81,6 +81,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7537219336204663481, guid: b97b7bf46ef66584fa4f772b53670bdd, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: -5050490729151102156, guid: b97b7bf46ef66584fa4f772b53670bdd, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.7071068
@@ -209,6 +213,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2950720172836266651}
     m_Modifications:
+    - target: {fileID: 2338212656386919941, guid: 950c1b30bc1ba6b4483351ec49b2fed3, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3412288626935786298, guid: 950c1b30bc1ba6b4483351ec49b2fed3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.1
@@ -252,6 +260,14 @@ PrefabInstance:
     - target: {fileID: 4111250501131505282, guid: 950c1b30bc1ba6b4483351ec49b2fed3, type: 3}
       propertyPath: m_Name
       value: Door
+      objectReference: {fileID: 0}
+    - target: {fileID: 6815226633167950553, guid: 950c1b30bc1ba6b4483351ec49b2fed3, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7101152053098461730, guid: 950c1b30bc1ba6b4483351ec49b2fed3, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

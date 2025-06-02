@@ -100,6 +100,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_WallPack_V2
       objectReference: {fileID: 0}
+    - target: {fileID: 4076725251750786266, guid: fc17b86d382791f47bb2c232124655f5, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5956623988871043951, guid: fc17b86d382791f47bb2c232124655f5, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
