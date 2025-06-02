@@ -304,6 +304,7 @@ MonoBehaviour:
   _rightOpenPosition: {x: 0.000007542282, y: -0.24500012, z: 1.4487263}
   _animationTime: 1
   _ease: 9
+  _audioSource: {fileID: 0}
 --- !u!4 &7490662 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8158822110967040809, guid: 72ec17d878ad6b647bf944ab5464a9ed, type: 3}
@@ -8540,6 +8541,7 @@ MonoBehaviour:
   <Data>k__BackingField: {fileID: 11400000, guid: 02e43cc8f54e3d49c9ed3286309b4225, type: 2}
   _door: {fileID: 2006257633}
   _outline: {fileID: 206596381}
+  _audioSource: {fileID: 0}
 --- !u!65 &206596380
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -50192,6 +50194,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Data>k__BackingField: {fileID: 11400000, guid: 840f20cb474f76ce0aaf3d1d823746cd, type: 2}
   _door: {fileID: 7490661}
+  _audioSource: {fileID: 0}
   _outline: {fileID: 1143528567}
 --- !u!114 &1143528567
 MonoBehaviour:
@@ -87629,6 +87632,7 @@ MonoBehaviour:
   _rightOpenPosition: {x: 0.000007542282, y: -0.24500012, z: 1.4487263}
   _animationTime: 1
   _ease: 9
+  _audioSource: {fileID: 0}
 --- !u!4 &2006257634 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8158822110967040809, guid: 72ec17d878ad6b647bf944ab5464a9ed, type: 3}

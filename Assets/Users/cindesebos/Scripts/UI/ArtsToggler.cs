@@ -2,7 +2,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using UnityEngine.InputSystem;
+using Scripts.Utils;
 using Zenject;
+using Scripts.Sounds;
 
 namespace Scripts.UI
 {
@@ -14,11 +16,15 @@ namespace Scripts.UI
         [SerializeField] private Image _artVisual;
 
         private UIInput _input;
+        private Character.Character _character;
+        private SoundsContainer _soundsContainer;
 
         [Inject]
-        private void Construct(UIInput input)
+        private void Construct(UIInput input, Character.Character character, SoundsContainer soundsContainer)
         {
             _input = input;
+            _character = character;
+            _soundsContainer = soundsContainer;
 
             _input.Enable();
 
@@ -34,6 +40,8 @@ namespace Scripts.UI
             _artVisual.gameObject.SetActive(true);
 
             _artVisual.sprite = sprite;
+
+            _character.AudioSource.PlayOneShot(_soundsContainer.InteractionWithArtSound);
         }
 
         public void Hide(InputAction.CallbackContext context)

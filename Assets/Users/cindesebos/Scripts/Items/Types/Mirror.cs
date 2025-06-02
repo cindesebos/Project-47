@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 using System;
 using Scripts.Props;
 using Scripts.UI;
+using Scripts.Sounds;
 
 namespace Scripts.Items.Types
 {
@@ -16,18 +17,21 @@ namespace Scripts.Items.Types
         [SerializeField] private GameObject _partToBreak;
         [SerializeField] private GameObject _brokenPart;
         [SerializeField] private Outline _outline;
+        [SerializeField] private AudioSource _audioSource;
 
         private bool _canUse = false;
         private bool _isUsed = false;
 
         private CharacterInput _characterInput;
         private ArtsToggler _artsToggler;
-        
+        private SoundsContainer _soundsContainer;
+
         [Inject]
-        private void Construct(CharacterInput characterInput, ArtsToggler artsToggler)
+        private void Construct(CharacterInput characterInput, ArtsToggler artsToggler, SoundsContainer soundsContainer)
         {
             _characterInput = characterInput;
             _artsToggler = artsToggler;
+            _soundsContainer = soundsContainer;
         }
 
         private void Start() => _outline.OutlineWidth = 0;
@@ -35,6 +39,8 @@ namespace Scripts.Items.Types
         private void OnValidate()
         {
             _outline ??= GetComponent<Outline>();
+            _audioSource ??= GetComponent<AudioSource>();
+
             if (_outline.OutlineWidth != 0) _outline.OutlineWidth = 0;
         }
 
@@ -64,6 +70,9 @@ namespace Scripts.Items.Types
             _artsToggler.Show(_art);
 
             _brokenPart.SetActive(true);
+            _partToBreak.SetActive(false);
+
+            _audioSource.PlayOneShot(_soundsContainer.BrokingWindowSound);
         }
 
         private void OnTriggerExit(Collider collider)
