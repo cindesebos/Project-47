@@ -104,6 +104,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_WallPack_V2
       objectReference: {fileID: 0}
+    - target: {fileID: 3583563608431567779, guid: fc17b86d382791f47bb2c232124655f5, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 4091914573309104685, guid: fc17b86d382791f47bb2c232124655f5, type: 3}
