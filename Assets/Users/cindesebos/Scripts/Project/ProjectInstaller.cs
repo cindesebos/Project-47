@@ -4,6 +4,7 @@ using Scripts.UI;
 using Scripts.Utils.Loader;
 using System;
 using Scripts.Items.Simply;
+using Scripts.Sounds;
 
 namespace Scripts.Project
 {
@@ -12,9 +13,11 @@ namespace Scripts.Project
         [SerializeField] private ArtsToggler _artsToggler;
         [SerializeField] private CursorHandler _cursorHandler;
         [SerializeField] private HudView _hudView;
+        [SerializeField] private SoundsContainer _soundsContainer;
 
         public override void InstallBindings()
         {
+            BindSoundsContainer();
             BindFirstAidKitLogic();
             BindUIInput();
             BindArtsHandler();
@@ -61,6 +64,13 @@ namespace Scripts.Project
         {
             Container.Bind<HudView>()
                 .FromInstance(_hudView)
+                .AsSingle();
+        }
+
+        private void BindSoundsContainer()
+        {
+            Container.Bind<SoundsContainer>()
+                .FromInstance(_soundsContainer)
                 .AsSingle();
         }
     }
