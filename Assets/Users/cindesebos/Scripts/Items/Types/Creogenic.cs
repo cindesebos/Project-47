@@ -5,6 +5,8 @@ using Scripts.Items;
 using UnityEngine.InputSystem;
 using System;
 using Scripts.Props;
+using Scripts.Sounds;
+using Scripts.UI;
 
 namespace Scripts.Items.Types
 {
@@ -13,10 +15,20 @@ namespace Scripts.Items.Types
     {
         [SerializeField] private GameObject _newVisual;
         [SerializeField] private Outline _outline;
+        [SerializeField] private AudioSource _audioSource;
 
         private bool _canInteract = false;
+        private bool _isUsed;
 
-        [Inject] private CharacterInput _characterInput;
+        private CharacterInput _characterInput;
+        private SoundsContainer _soundsContainer;
+
+        [Inject]
+        private void Construct(CharacterInput characterInput, SoundsContainer soundsContainer)
+        {
+            _characterInput = characterInput;
+            _soundsContainer = soundsContainer;
+        }
 
         private void OnValidate()
         {
@@ -36,7 +48,7 @@ namespace Scripts.Items.Types
 
         private void OnTriggerEnter(Collider collider)
         {
-            if (!collider.gameObject.GetComponent<Character.Character>()) return;
+            if (!collider.gameObject.GetComponent<Character.Character>() && _isUsed) return;
 
             _outline.OutlineWidth = Data.OutlineWidth;
 
@@ -45,6 +57,13 @@ namespace Scripts.Items.Types
 
         private void Use(InputAction.CallbackContext context)
         {
+            if (_isUsed) return;
+            
+            _isUsed = true;
+
+            _audioSource.PlayOneShot(_soundsContainer.BreakingCryochamberWithCrowbarSound);
+            _outline.OutlineWidth = 0;
+
             _newVisual.SetActive(true);
 
             gameObject.SetActive(false);

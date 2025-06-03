@@ -12430,10 +12430,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 5782300622499511426, guid: afb62aeaaea19e4e5909c40f7e53b14c, type: 3}
-      propertyPath: _bulletLineRendererPrefab
-      value: 
-      objectReference: {fileID: 8400905868130980849, guid: ab3a9360b49419231aa479b4240a8a48, type: 3}
     - target: {fileID: 6896015407337110799, guid: afb62aeaaea19e4e5909c40f7e53b14c, type: 3}
       propertyPath: m_RenderingLayerMask
       value: 1

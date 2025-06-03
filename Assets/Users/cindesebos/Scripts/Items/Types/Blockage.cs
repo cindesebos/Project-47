@@ -5,6 +5,7 @@ using Scripts.Items;
 using UnityEngine.InputSystem;
 using System;
 using Scripts.Props;
+using Scripts.Sounds;
 
 namespace Scripts.Items.Types
 {
@@ -13,10 +14,19 @@ namespace Scripts.Items.Types
     {
         [SerializeField] private GameObject _parent;
         [SerializeField] private Outline _outline;
+        [SerializeField] private AudioSource _audioSource;
 
         private bool _canInteract = false;
 
-        [Inject] private CharacterInput _characterInput;
+        private CharacterInput _characterInput;
+        private SoundsContainer _soundsContainer;
+
+        [Inject]
+        private void Construct(SoundsContainer soundsContainer, CharacterInput characterInput)
+        {
+            _characterInput = characterInput; 
+            _soundsContainer = soundsContainer;
+        }
 
         private void OnValidate()
         {
@@ -46,6 +56,7 @@ namespace Scripts.Items.Types
         private void Use(InputAction.CallbackContext context)
         {
             _parent.SetActive(false);
+            _audioSource.PlayOneShot(_soundsContainer.ExplosionSound);
         }
 
         private void OnTriggerExit(Collider collider)

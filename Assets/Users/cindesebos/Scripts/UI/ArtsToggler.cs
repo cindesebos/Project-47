@@ -19,6 +19,9 @@ namespace Scripts.UI
         private Character.Character _character;
         private SoundsContainer _soundsContainer;
 
+        private Sprite[] _sprites;
+        private int _index;
+
         [Inject]
         private void Construct(UIInput input, Character.Character character, SoundsContainer soundsContainer)
         {
@@ -34,6 +37,7 @@ namespace Scripts.UI
         public void Show(Sprite sprite)
         {
             _input.Interaction.Hide.performed += Hide;
+            _sprites = null;
 
             OnShow?.Invoke();
 
@@ -44,8 +48,50 @@ namespace Scripts.UI
             _character.AudioSource.PlayOneShot(_soundsContainer.InteractionWithArtSound);
         }
 
+        public void Show(Sprite[] sprites)
+        {
+            if (_sprites != sprites)
+            {
+                _sprites = sprites;
+                _index = 0;
+            }
+            else
+            {
+                _index++;
+
+                if (_index >= _sprites.Length)
+                {
+                    _sprites = null;
+
+                    _artVisual.gameObject.SetActive(false);
+
+                    OnHide?.Invoke();
+
+                    return;
+                }
+            }
+
+
+            _input.Interaction.Hide.performed += Hide;
+
+            OnShow?.Invoke();
+
+            _artVisual.gameObject.SetActive(true);
+
+            _artVisual.sprite = _sprites[_index];
+
+            _character.AudioSource.PlayOneShot(_soundsContainer.InteractionWithArtSound);
+        }
+
         public void Hide(InputAction.CallbackContext context)
         {
+            if (_sprites != null)
+            {
+                Show(_sprites);
+
+                return;
+            }
+
             _artVisual.gameObject.SetActive(false);
 
             _input.Interaction.Hide.performed -= Hide;

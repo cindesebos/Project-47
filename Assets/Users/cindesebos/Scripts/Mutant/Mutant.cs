@@ -1,3 +1,4 @@
+using Scripts.Sounds;
 using UnityEngine;
 using Zenject;
 
@@ -12,6 +13,7 @@ namespace Scripts.Mutant
         [SerializeField] private MutantAttacker _attacker;
         [SerializeField] private MutantView _view;
         [SerializeField] private Animator _animator;
+        [SerializeField] private AudioSource _audioSource;
         [Space]
 
         [SerializeField] private BodyPartDamageMultiplier _headPart;
@@ -24,7 +26,8 @@ namespace Scripts.Mutant
         [SerializeField] private Transform _eyePosition;
 
         private Character.Character _character;
-        [SerializeField] private bool _isAttacking;
+        private bool _isAttacking;
+        private SoundsContainer _soundsContainer;
 
         private void OnValidate()
         {
@@ -39,16 +42,17 @@ namespace Scripts.Mutant
         }
 
         [Inject]
-        private void Construct(Character.Character character)
+        private void Construct(Character.Character character, SoundsContainer soundsContainer)
         {
             _character = character;
+            _soundsContainer = soundsContainer;
         }
 
         private void Start()
         {
             InitializeParts();
 
-            _health.Initialize(_data);
+            _health.Initialize(_data, _audioSource, _soundsContainer);
             _mover.Initialize(_data, _patrolPoints);
             _chaser.Initialize(_data, _eyePosition, _mover);
             _attacker.Initialize(_data);
