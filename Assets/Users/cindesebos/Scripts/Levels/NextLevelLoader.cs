@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Scripts.Utils.Loader;
 using UnityEngine;
 using Zenject;
@@ -14,9 +15,9 @@ namespace Scripts.Levels
             _levelLoader = levelLoader;
         }
         
-        private void OnTriggerEnter(Collider collider)
+        private async Task OnTriggerEnter(Collider collider)
         {
-            if (collider.gameObject.GetComponent<Character.Character>()) _levelLoader.LoadNextLevelAsync();
+            if (collider.gameObject.GetComponent<Character.Character>()) await _levelLoader.LoadNextLevelAsync();
         }
 
     }

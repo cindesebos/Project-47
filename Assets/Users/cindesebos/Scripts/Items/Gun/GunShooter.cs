@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 using Scripts.Character;
 using Zenject.SpaceFighter;
 using Scripts.Mutant;
+using Scripts.Sounds;
 
 namespace Scripts.Items.Gun
 {
@@ -25,6 +26,8 @@ namespace Scripts.Items.Gun
         private float _damage;
         private float _bulletSpeed;
         private Camera _camera;
+        private SoundsContainer _soundsContainer;
+        private AudioSource _audioSource;
 
         public int CurrentAmmoAmount
         {
@@ -41,7 +44,7 @@ namespace Scripts.Items.Gun
 
         public float Damage { get; private set; }
 
-        public void Initialize(HudView hudView, CharacterInput input)
+        public void Initialize(HudView hudView, CharacterInput input, SoundsContainer soundsContainer, AudioSource audioSource)
         {
             _camera = Camera.main;
 
@@ -53,6 +56,8 @@ namespace Scripts.Items.Gun
             Damage = _data.Damage;
             _bulletSpeed = _data.BulletSpeed;
             _camera = Camera.main;
+            _soundsContainer = soundsContainer;
+            _audioSource = audioSource;
 
             OnAmmoAmountChanged();
 
@@ -71,6 +76,8 @@ namespace Scripts.Items.Gun
             if (CurrentAmmoAmount <= 0) return;
 
             Shoot();
+
+            _audioSource.PlayOneShot(_soundsContainer.GunShootingSound);
 
             CurrentAmmoAmount--;
         }

@@ -54,12 +54,12 @@ namespace Scripts.Mutant
         {
             if (_target == null) return;
 
-            Debug.Log(_target.transform.position);
-
             _navMeshAgent.SetDestination(_target.position);
         }
 
         public void SetChassingTarget(Transform target) => _target = target;
+
+        public void Stay() => _navMeshAgent.SetDestination(transform.position);
 
         public void RemoveChassingTarget() => _target = null;
     }
