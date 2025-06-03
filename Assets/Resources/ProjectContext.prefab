@@ -261,9 +261,12 @@ MonoBehaviour:
   <BrokingWindowSound>k__BackingField: {fileID: 8300000, guid: 429f9106a60e5d2129f52fc045e7e03b, type: 3}
   <OpeningDoorSound>k__BackingField: {fileID: 8300000, guid: bb2799e5af1e86634b25cb902bd29e30, type: 3}
   <ClosingDoorSound>k__BackingField: {fileID: 8300000, guid: 9e7e9c301d7512e9e8e1ef5551d9a78b, type: 3}
+  <BreakingCryochamberWithCrowbar>k__BackingField: {fileID: 8300000, guid: 2b10990f2104b5ded8ed6bd4cf1eb355, type: 3}
   <InputedCorrectSafeCodeSound>k__BackingField: {fileID: 8300000, guid: 2c753abb91bb8ed59b8c89b14df6c0b0, type: 3}
   <InputedIncorrectSafeCodeSound>k__BackingField: {fileID: 8300000, guid: ddae3b406ee692a87a30e9154f1f4509, type: 3}
   <InputingSafeInputSound>k__BackingField: {fileID: 8300000, guid: 51b1d5f993a9af5268ceb9494c9c2c2b, type: 3}
+  <GunShootingSound>k__BackingField: {fileID: 8300000, guid: 50cf58d046cb8cb288c5dfe12bbb65d5, type: 3}
+  <MutantTakingDamage>k__BackingField: {fileID: 8300000, guid: 61496910fbf18c5ba8358dfa315db9be, type: 3}
 --- !u!1 &2597548564135967754
 GameObject:
   m_ObjectHideFlags: 0

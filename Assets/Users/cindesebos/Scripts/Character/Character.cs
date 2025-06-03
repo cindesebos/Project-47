@@ -5,6 +5,7 @@ using UnityEngine;
 using Cysharp.Threading.Tasks;
 using Zenject;
 using Scripts.Items.Gun;
+using Scripts.Sounds;
 
 namespace Scripts.Character
 {
@@ -28,6 +29,7 @@ namespace Scripts.Character
         private IInventory _inventory;
         private ArtsToggler _artsToggler;
         private HudView _hudView;
+        private SoundsContainer _soundsContainer;
 
         private void OnValidate()
         {
@@ -40,13 +42,15 @@ namespace Scripts.Character
         }
 
         [Inject]
-        private void Construct(CharacterInput input, CharacterData data, IInventory inventory, ArtsToggler artsToggler, HudView hudView)
+        private void Construct(CharacterInput input, CharacterData data, IInventory inventory,
+        ArtsToggler artsToggler, HudView hudView, SoundsContainer soundsContainer)
         {
             _input = input;
             _data = data;
             _inventory = inventory;
             _artsToggler = artsToggler;
             _hudView = hudView;
+            _soundsContainer = soundsContainer;
         }
 
         private void OnEnable()
@@ -100,7 +104,7 @@ namespace Scripts.Character
 
             _hudView.SetGunPanelActive(true);
 
-            GunShooter.Initialize(_hudView, _input);
+            GunShooter.Initialize(_hudView, _input, _soundsContainer, AudioSource);
         }
 
         public void ToggleGun()
