@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 using System;
 using Scripts.Props;
 using Scripts.Sounds;
+using Scripts.UI;
 
 namespace Scripts.Items.Types
 {
@@ -56,9 +57,11 @@ namespace Scripts.Items.Types
 
         private void Use(InputAction.CallbackContext context)
         {
+            if (_isUsed) return;
+            
             _isUsed = true;
 
-            _audioSource.PlayOneShot(_soundsContainer.BreakingCryochamberWithCrowbar);
+            _audioSource.PlayOneShot(_soundsContainer.BreakingCryochamberWithCrowbarSound);
             _outline.OutlineWidth = 0;
 
             _newVisual.SetActive(true);
