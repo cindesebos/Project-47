@@ -14,7 +14,7 @@ LightingSettings:
   m_RealtimeEnvironmentLighting: 1
   m_BounceScale: 1
   m_AlbedoBoost: 1
-  m_IndirectOutputScale: 1
+  m_IndirectOutputScale: 0.2
   m_UsingShadowmask: 1
   m_BakeBackend: 2
   m_LightmapMaxSize: 1024
@@ -48,8 +48,8 @@ LightingSettings:
   m_PVRBounces: 2
   m_PVRMinBounces: 0
   m_PVREnvironmentImportanceSampling: 1
-  m_PVRFilteringMode: 0
-  m_PVRDenoiserTypeDirect: 1
+  m_PVRFilteringMode: 2
+  m_PVRDenoiserTypeDirect: 2
   m_PVRDenoiserTypeIndirect: 2
   m_PVRDenoiserTypeAO: 2
   m_PVRFilterTypeDirect: 0
