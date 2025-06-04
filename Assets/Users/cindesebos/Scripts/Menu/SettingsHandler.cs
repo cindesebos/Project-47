@@ -18,7 +18,9 @@ namespace Scripts.Menu
         public float MasterValue { get; set; }
         public float MusicValue { get; set; }
         public float SoundsValue { get; set; }
+        public float SensitivityValue { get; set; }
 
+        [SerializeField] private Slider _sensitivitySlider;
         [SerializeField] private Slider _masterSlider;
         [SerializeField] private Slider _soundsSlider;
         [SerializeField] private Slider _musicSlider;
@@ -29,11 +31,13 @@ namespace Scripts.Menu
         [SerializeField] private AudioMixer _audioMixer;
 
         private FPSDisplayer _fpsDisplayer;
+        private Character.Character _character;
 
         [Inject]
-        private void Construct(FPSDisplayer fpsDisplayer)
+        private void Construct(FPSDisplayer fpsDisplayer, Character.Character character = null)
         {
             _fpsDisplayer = fpsDisplayer;
+            _character = character;
         }
 
         private void Start()
@@ -41,9 +45,19 @@ namespace Scripts.Menu
             _fpsDisplayerToggler.onValueChanged.AddListener(OnFpsTogglerValueChanged);
             _fpsLimitDropdown.onValueChanged.AddListener(OnFpsLimitValueChanged);
 
+            _sensitivitySlider.onValueChanged.AddListener(OnSensitivityValueChanged);
             _masterSlider.onValueChanged.AddListener(OnMasterValueChanged);
             _soundsSlider.onValueChanged.AddListener(OnSoundsValueChanged);
             _musicSlider.onValueChanged.AddListener(OnMusicValueChanged);
+        }
+
+        public void OnSensitivityValueChanged(float value)
+        {
+            SensitivityValue = value;
+
+            Debug.Log(_character);
+
+            if (_character != null) _character.ChangeMouseSensitivity(SensitivityValue);
         }
 
         public void OnMasterValueChanged(float value)
@@ -67,7 +81,7 @@ namespace Scripts.Menu
             _audioMixer.SetFloat(MusicKey, MusicValue);
         }
 
-        public void Load(bool fpsDisplayerState, int fpsLimitValue, float masterValue, float musicValue, float soundsValue)
+        public void Load(bool fpsDisplayerState, int fpsLimitValue, float masterValue, float musicValue, float soundsValue, float savedSensitivityValue)
         {
             _fpsDisplayerToggler.isOn = fpsDisplayerState;
             OnFpsTogglerValueChanged(fpsDisplayerState);
@@ -83,6 +97,11 @@ namespace Scripts.Menu
 
             _soundsSlider.value = soundsValue;
             OnSoundsValueChanged(soundsValue);
+
+            SensitivityValue = savedSensitivityValue;
+
+            _sensitivitySlider.value = SensitivityValue;
+            OnSensitivityValueChanged(SensitivityValue);
 
             Debug.Log("Settings Handler was loaded");
         }
@@ -116,6 +135,7 @@ namespace Scripts.Menu
             _fpsDisplayerToggler.onValueChanged.RemoveListener(OnFpsTogglerValueChanged);
             _fpsLimitDropdown.onValueChanged.RemoveListener(OnFpsLimitValueChanged);
 
+            _sensitivitySlider.onValueChanged.RemoveListener(OnSensitivityValueChanged);
             _masterSlider.onValueChanged.RemoveListener(OnMasterValueChanged);
             _soundsSlider.onValueChanged.RemoveListener(OnSoundsValueChanged);
             _musicSlider.onValueChanged.RemoveListener(OnMusicValueChanged);

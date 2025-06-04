@@ -47,6 +47,8 @@ namespace Scripts.Items.Types
             if (_targetItemId != item.Id) return;
 
             _canOpenDoor = true;
+
+            _outline.OutlineWidth = 0;
         }
 
         private void OnTriggerEnter(Collider collider)

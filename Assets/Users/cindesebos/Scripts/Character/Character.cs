@@ -109,6 +109,15 @@ namespace Scripts.Character
 
         public void AllowRun() => _movement.AllowRun();
 
+        public void ChangeMouseSensitivity(float mouseSensitivity)
+        {
+            Debug.Log($"mouseSensitivity: {mouseSensitivity}   _data.MouseSensativity: {_data.MouseSensativity}");
+
+            _data.MouseSensativity = mouseSensitivity;
+
+            _movement.ChangeMouseSensitivity(mouseSensitivity);
+        }
+
         public void ToggleGun()
         {
             if (!_haveGun) return;

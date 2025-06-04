@@ -18,7 +18,6 @@ namespace Scripts.Items.Types
         [SerializeField] private AudioSource _audioSource;
 
         private bool _canInteract = false;
-        private bool _isUsed;
         
         private CharacterInput _characterInput;
         private SoundsContainer _soundsContainer;
@@ -50,7 +49,7 @@ namespace Scripts.Items.Types
 
         private void OnTriggerEnter(Collider collider)
         {
-            if (!collider.gameObject.GetComponent<Character.Character>() && _isUsed) return;
+            if (!collider.gameObject.GetComponent<Character.Character>()) return;
 
             _outline.OutlineWidth = Data.OutlineWidth;
 
@@ -59,18 +58,14 @@ namespace Scripts.Items.Types
 
         private void Use(InputAction.CallbackContext context)
         {
-            if (_isUsed) return;
-            
-            _isUsed = true;
-
-            _outline.OutlineWidth = 0;
-
             _artsToggler.Show(_arts);
+
+            _audioSource.PlayOneShot(_soundsContainer.ItemPickupSound);
         }
 
         private void OnTriggerExit(Collider collider)
         {
-            if (!collider.gameObject.GetComponent<Character.Character>() && _isUsed) return;
+            if (!collider.gameObject.GetComponent<Character.Character>()) return;
             
             _outline.OutlineWidth = 0;
 

@@ -7,7 +7,7 @@ namespace Scripts.Character
     {
         [field: SerializeField] public float WalkSpeed { get; private set; } = 5f;
         [field: SerializeField] public float RunSpeed { get; private set; } = 9f;
-        [field: SerializeField] public float MouseSensativity { get; private set; } = 2f;
+        [field: SerializeField] public float MouseSensativity { get; set; } = 2f;
         [field: SerializeField] public float RayDistance { get; private set; } = 1.5f;
         [field: SerializeField] public LayerMask TargetLayer { get; private set; }
         [field: SerializeField] public float BobSpeed { get; private set; } = 10f;

@@ -104,6 +104,8 @@ namespace Scripts.Character
 
         public void AllowRun() => _canRun = true;
 
+        public void ChangeMouseSensitivity(float mouseSensitivity) => _mouseSensitivity = mouseSensitivity;
+
         private float GetScaledSpeed(float currentSpeed) => currentSpeed * Time.deltaTime;
     }
 }

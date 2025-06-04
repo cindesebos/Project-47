@@ -9,7 +9,7 @@ namespace Scripts.Items.Simply
     public class Keyboard : MonoBehaviour
     {
         [SerializeField] private GameObject _greenBlock, _redBlock;
-        [SerializeField] private ClosedDoor _door;
+        [SerializeField] private ClosedDoor[] _doors;
         [SerializeField] private Outline _outline;
 
         [SerializeField] private bool _canUse = true;
@@ -47,7 +47,7 @@ namespace Scripts.Items.Simply
             _redBlock.SetActive(false);
             _greenBlock.SetActive(true);
 
-            _door.Open();
+            foreach (var door in _doors) door.Open();
         }
 
         private void OnTriggerExit(Collider collider)

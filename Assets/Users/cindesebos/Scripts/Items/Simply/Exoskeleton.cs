@@ -28,7 +28,7 @@ namespace Scripts.Items.Simply
 
         private void Start() => _outline.OutlineWidth = 0;
 
-        private void OnTriggerEnter(Collider collider)
+        private void OnTriggerStay(Collider collider)
         {
             _outline.OutlineWidth = 5;
 

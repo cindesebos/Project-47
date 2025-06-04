@@ -9,6 +9,7 @@ namespace Scripts.Utils.Storage
     {
         private const string MedKitKey = "Save_MedKitAmount";
         private const string AmmoKey = "Save_AmmoAmount";
+        private const string SettingsSensitivityKey = "Save_Settings_Sensitivity";
         private const string SettingsFpsToggleKey = "Save_Settings_FpsToggle";
         private const string SettingsFpsLimitToggleKey = "Save_Settings_FpsLimit";
         private const string SettingsMasterKey = "Save_Settings_Master";
@@ -28,17 +29,18 @@ namespace Scripts.Utils.Storage
 
         public void Save()
         {
-            if (_firstAidKitLogic != null) PlayerPrefs.SetInt(MedKitKey, _firstAidKitLogic.Amount);
+            if (_firstAidKitLogic != null) PlayerPrefs.SetFloat(MedKitKey, _firstAidKitLogic.Amount);
             if (_gunShooter != null) PlayerPrefs.SetInt(AmmoKey, _gunShooter.CurrentAmmoAmount);
             if (_settingsHandler != null)
             {
+                PlayerPrefs.SetFloat(SettingsSensitivityKey, _settingsHandler.SensitivityValue);
                 PlayerPrefs.SetInt(SettingsFpsToggleKey, _settingsHandler.FpsDisplayerToggleState ? 1 : 0);
                 PlayerPrefs.SetInt(SettingsFpsLimitToggleKey, _settingsHandler.FpsLimitValue);
                 PlayerPrefs.SetFloat(SettingsMasterKey, _settingsHandler.MasterValue);
                 PlayerPrefs.SetFloat(SettingsMusicKey, _settingsHandler.MusicValue);
                 PlayerPrefs.SetFloat(SettingsSoundsKey, _settingsHandler.SoundsValue);
 
-                Debug.Log($"Loaded savedFpsToggle: {_settingsHandler.FpsDisplayerToggleState }, savedFpsLimit: {_settingsHandler.FpsLimitValue}");
+                Debug.Log($"Loaded savedSensitivityValue: {_settingsHandler.SensitivityValue }");
             }
             PlayerPrefs.Save();
         }
@@ -47,6 +49,7 @@ namespace Scripts.Utils.Storage
         {
             int savedMedKits = PlayerPrefs.GetInt(MedKitKey, 0);
             int savedAmmo = PlayerPrefs.GetInt(AmmoKey, 0);
+            float savedSensitivityValue = PlayerPrefs.GetFloat(SettingsSensitivityKey, 0.05f);
             bool savedFpsToggle = PlayerPrefs.GetInt(SettingsFpsToggleKey, 0) == 1;
             int savedFpsLimit = PlayerPrefs.GetInt(SettingsFpsLimitToggleKey, 0);
             float savedMasterValue = PlayerPrefs.GetFloat(SettingsMasterKey, 0f);
@@ -65,9 +68,9 @@ namespace Scripts.Utils.Storage
 
             if (_settingsHandler != null)
             {
-                _settingsHandler.Load(savedFpsToggle, savedFpsLimit, savedMasterValue, savedMusicValue, savedSoundsValue);
+                _settingsHandler.Load(savedFpsToggle, savedFpsLimit, savedMasterValue, savedMusicValue, savedSoundsValue, savedSensitivityValue);
 
-                Debug.Log($"Loaded savedFpsToggle: {savedFpsToggle}, savedFpsLimit: {savedFpsLimit}");
+                Debug.Log($"Loaded savedSensitivityValue: {savedSensitivityValue}");
             }
         }
 
@@ -75,8 +78,6 @@ namespace Scripts.Utils.Storage
         {
             PlayerPrefs.DeleteKey(MedKitKey);
             PlayerPrefs.DeleteKey(AmmoKey);
-            PlayerPrefs.DeleteKey(SettingsFpsToggleKey);
-            PlayerPrefs.DeleteKey(SettingsFpsLimitToggleKey);
             PlayerPrefs.Save();
 
             _firstAidKitLogic.SetAmount(0);
