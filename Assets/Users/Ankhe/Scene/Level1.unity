@@ -1207,6 +1207,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6481752066641363426, guid: afb62aeaaea19e4e5909c40f7e53b14c, type: 3}
+      propertyPath: _isFirstLevel
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6481752066641363426, guid: afb62aeaaea19e4e5909c40f7e53b14c, type: 3}
       propertyPath: <Health>k__BackingField
       value: 1
       objectReference: {fileID: 0}
