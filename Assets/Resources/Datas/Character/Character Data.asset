@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e871e0fe799918b3b5f8a832664202d, type: 3}
   m_Name: Character Data
   m_EditorClassIdentifier: 
-  <WalkSpeed>k__BackingField: 2.5
+  <WalkSpeed>k__BackingField: 9
   <RunSpeed>k__BackingField: 3.5
   <MouseSensativity>k__BackingField: 0.05
   <RayDistance>k__BackingField: 2

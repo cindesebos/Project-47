@@ -102,6 +102,8 @@ namespace Scripts.Character
             return _isRuning ? _runSpeed : _walkSpeed;
         }
 
+        public void AllowRun() => _canRun = true;
+
         private float GetScaledSpeed(float currentSpeed) => currentSpeed * Time.deltaTime;
     }
 }

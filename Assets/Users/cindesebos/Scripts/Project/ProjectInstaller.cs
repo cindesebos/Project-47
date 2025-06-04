@@ -5,6 +5,9 @@ using Scripts.Utils.Loader;
 using System;
 using Scripts.Items.Simply;
 using Scripts.Sounds;
+using Scripts.Character.Inventory;
+using TMPro;
+using Scripts.UI.FPS;
 
 namespace Scripts.Project
 {
@@ -14,6 +17,8 @@ namespace Scripts.Project
         [SerializeField] private HudView _hudView;
         [SerializeField] private SoundsContainer _soundsContainer;
         [SerializeField] private BackGroundMusicPlayer _backGroundMusicPlayer;
+        [SerializeField] private InventoryNotification _inventoryNotification;
+        [SerializeField] private FPSDisplayer _fpsDisplayer;
 
         public override void InstallBindings()
         {
@@ -24,6 +29,8 @@ namespace Scripts.Project
             BindCursorHandler();
             BindHudView();
             BindBackGroundMusicPlayer();
+            BindInventoryNotification();
+            BindFpsDisplayer();
         }
 
         private void BindFirstAidKitLogic()
@@ -71,6 +78,20 @@ namespace Scripts.Project
         {
             Container.Bind<BackGroundMusicPlayer>()
                 .FromInstance(_backGroundMusicPlayer)
+                .AsSingle();
+        }
+
+        private void BindInventoryNotification()
+        {
+            Container.Bind<InventoryNotification>()
+                .FromInstance(_inventoryNotification)
+                .AsSingle();
+        }
+
+        private void BindFpsDisplayer()
+        {
+            Container.Bind<FPSDisplayer>()
+                .FromInstance(_fpsDisplayer)
                 .AsSingle();
         }
     }

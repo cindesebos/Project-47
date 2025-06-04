@@ -107,6 +107,8 @@ namespace Scripts.Character
             GunShooter.Initialize(_hudView, _input, _soundsContainer, AudioSource);
         }
 
+        public void AllowRun() => _movement.AllowRun();
+
         public void ToggleGun()
         {
             if (!_haveGun) return;

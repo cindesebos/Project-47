@@ -1,6 +1,7 @@
 using UnityEngine;
 using Scripts.Items.Simply;
 using Scripts.Items.Gun;
+using Scripts.Menu;
 
 namespace Scripts.Utils.Storage
 {
@@ -8,47 +9,78 @@ namespace Scripts.Utils.Storage
     {
         private const string MedKitKey = "Save_MedKitAmount";
         private const string AmmoKey = "Save_AmmoAmount";
+        private const string SettingsFpsToggleKey = "Save_Settings_FpsToggle";
+        private const string SettingsFpsLimitToggleKey = "Save_Settings_FpsLimit";
+        private const string SettingsMasterKey = "Save_Settings_Master";
+        private const string SettingsMusicKey = "Save_Settings_Music";
+        private const string SettingsSoundsKey = "Save_Settings_Sounds";
 
-        private readonly FirstAidKitLogic _firstAidKitLogic;
-        private readonly GunShooter _gunShooter;
+        private FirstAidKitLogic _firstAidKitLogic;
+        private GunShooter _gunShooter;
+        private SettingsHandler _settingsHandler;
 
-        public StorageService(FirstAidKitLogic firstAidKitLogic, Character.Character character)
+        public void Initialize(FirstAidKitLogic firstAidKitLogic = null, Character.Character character = null, SettingsHandler settingsHandler = null)
         {
             _firstAidKitLogic = firstAidKitLogic;
-            _gunShooter = character.GunShooter;
+            if (character != null) _gunShooter = character.GunShooter;
+            _settingsHandler = settingsHandler;
         }
 
         public void Save()
         {
-            PlayerPrefs.SetInt(MedKitKey, _firstAidKitLogic.Amount);
-            PlayerPrefs.SetInt(AmmoKey, _gunShooter.CurrentAmmoAmount);
-            PlayerPrefs.Save();
+            if (_firstAidKitLogic != null) PlayerPrefs.SetInt(MedKitKey, _firstAidKitLogic.Amount);
+            if (_gunShooter != null) PlayerPrefs.SetInt(AmmoKey, _gunShooter.CurrentAmmoAmount);
+            if (_settingsHandler != null)
+            {
+                PlayerPrefs.SetInt(SettingsFpsToggleKey, _settingsHandler.FpsDisplayerToggleState ? 1 : 0);
+                PlayerPrefs.SetInt(SettingsFpsLimitToggleKey, _settingsHandler.FpsLimitValue);
+                PlayerPrefs.SetFloat(SettingsMasterKey, _settingsHandler.MasterValue);
+                PlayerPrefs.SetFloat(SettingsMusicKey, _settingsHandler.MusicValue);
+                PlayerPrefs.SetFloat(SettingsSoundsKey, _settingsHandler.SoundsValue);
 
-            Debug.Log($"Saved MedKits: {_firstAidKitLogic.Amount}, Ammo: {_gunShooter.CurrentAmmoAmount}");
+                Debug.Log($"Loaded savedFpsToggle: {_settingsHandler.FpsDisplayerToggleState }, savedFpsLimit: {_settingsHandler.FpsLimitValue}");
+            }
+            PlayerPrefs.Save();
         }
 
         public void Load()
         {
             int savedMedKits = PlayerPrefs.GetInt(MedKitKey, 0);
             int savedAmmo = PlayerPrefs.GetInt(AmmoKey, 0);
+            bool savedFpsToggle = PlayerPrefs.GetInt(SettingsFpsToggleKey, 0) == 1;
+            int savedFpsLimit = PlayerPrefs.GetInt(SettingsFpsLimitToggleKey, 0);
+            float savedMasterValue = PlayerPrefs.GetFloat(SettingsMasterKey, 0f);
+            float savedMusicValue = PlayerPrefs.GetFloat(SettingsMusicKey, 0f);
+            float savedSoundsValue = PlayerPrefs.GetFloat(SettingsSoundsKey, 0f);
 
-            _firstAidKitLogic.SetAmount(savedMedKits);
+            if (_firstAidKitLogic != null)
+            {
+                _firstAidKitLogic.SetAmount(savedMedKits);
+            }
 
-            Debug.Log($"GunShooter {_gunShooter.name} loaded ammo: {savedAmmo}");
-            
-            _gunShooter.SetAmmo(savedAmmo);
+            if (_gunShooter != null)
+            {
+                _gunShooter.SetAmmo(savedAmmo);
+            }
 
-            Debug.Log($"Loaded MedKits: {savedMedKits}, Ammo: {savedAmmo}");
+            if (_settingsHandler != null)
+            {
+                _settingsHandler.Load(savedFpsToggle, savedFpsLimit, savedMasterValue, savedMusicValue, savedSoundsValue);
+
+                Debug.Log($"Loaded savedFpsToggle: {savedFpsToggle}, savedFpsLimit: {savedFpsLimit}");
+            }
         }
 
         public void Reset()
         {
             PlayerPrefs.DeleteKey(MedKitKey);
             PlayerPrefs.DeleteKey(AmmoKey);
+            PlayerPrefs.DeleteKey(SettingsFpsToggleKey);
+            PlayerPrefs.DeleteKey(SettingsFpsLimitToggleKey);
             PlayerPrefs.Save();
 
             _firstAidKitLogic.SetAmount(0);
-            _gunShooter.SetAmmo(0);
+            if(_gunShooter != null) _gunShooter.SetAmmo(0);
 
             Debug.Log("Storage reset: MedKits and Ammo set to 0.");
         }

@@ -16,6 +16,8 @@ namespace Scripts.Items.Types
         private const float DelayBeforeDoorOpening = 3f;
 
         [SerializeField] private ClosedDoor _door;
+        [SerializeField] private Collider _exoskeletonCollider;
+        [SerializeField] private GameObject _glass;
         [SerializeField] private Outline _outline;
         [SerializeField] private AudioSource _audioSource;
 
@@ -69,12 +71,14 @@ namespace Scripts.Items.Types
 
             OpenDoorWithDelay().Forget();
         }
-        
+
         private async UniTaskVoid OpenDoorWithDelay()
         {
             await UniTask.Delay(TimeSpan.FromSeconds(DelayBeforeDoorOpening));
 
-            _door.Open();
+            _door?.Open();
+            if (_exoskeletonCollider != null) _exoskeletonCollider.enabled = true;
+            _glass?.SetActive(false);
         }
 
         private void OnTriggerExit(Collider collider)

@@ -13,11 +13,11 @@ namespace Scripts.Safe
         public event Action OnSafeOpened;
 
         private const int MaxNumberOfDigits = 4;
-        private const string TargetInputValue = "2804";
         private const string ErrorText = "Error";
 
         private int _currentInputIndex = 0;
 
+        [SerializeField] private string _targetInputValue = "2804";
         [SerializeField] private GameObject _view;
 
         [SerializeField] private Button[] _digitButtons;
@@ -84,7 +84,7 @@ namespace Scripts.Safe
         {
             _summitButton.onClick.AddListener(() =>
             {
-                if (_currentInputValue == TargetInputValue)
+                if (_currentInputValue == _targetInputValue)
                 {
                     Debug.Log("Input is correct.");
 
