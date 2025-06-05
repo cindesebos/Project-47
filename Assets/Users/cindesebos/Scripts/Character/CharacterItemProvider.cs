@@ -73,8 +73,6 @@ namespace Scripts.Character
                 {
                     if (hit.collider.TryGetComponent(out Item item))
                     {
-                        Debug.Log($"Item found: {item.Data.Name}");
-
                         _currentSelectedItem = item;
                         _currentSelectedItem.SetOutlineVisible(true);
                         _lastHit = hit;
@@ -83,8 +81,6 @@ namespace Scripts.Character
 
                     if (hit.collider.TryGetComponent(out Note note))
                     {
-                        Debug.Log($"Note found: {note.Data}");
-
                         _currentSelectedNote = note;
                         _currentSelectedNote.SetOutlineVisible(true);
 

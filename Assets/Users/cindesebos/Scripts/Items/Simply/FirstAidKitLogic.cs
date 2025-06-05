@@ -45,6 +45,8 @@ namespace Scripts.Items.Simply
 
             Amount -= amount;
 
+            _hudView.HealCharacter(amount);
+
             return true;
         }
 
