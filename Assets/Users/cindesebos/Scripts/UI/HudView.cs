@@ -14,6 +14,7 @@ namespace Scripts.UI
 
         [SerializeField] private GameObject _medKitsPanel;
         [SerializeField] private TextMeshProUGUI _medKitsAmountDisplay;
+        [SerializeField] public GameObject _deadDisplayer;
 
         private Character.CharacterHealth _characterHealth;
 

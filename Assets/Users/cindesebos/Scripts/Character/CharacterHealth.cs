@@ -42,6 +42,7 @@ namespace Scripts.Character
                 _isDead = true;
 
                 SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                
             }
 
             _hudView.SetHealth(Health);
