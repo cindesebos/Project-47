@@ -5,6 +5,8 @@ using Zenject;
 using Scripts.Character.Inventory;
 using Scripts.Utils.Storage;
 using Scripts.Items;
+using Scripts.UI;
+using Scripts.Menu;
 
 namespace Scripts.Levels
 {
@@ -13,18 +15,30 @@ namespace Scripts.Levels
         private const string CharacterDataPath = "Datas/Character/Character Data";
         private const string InventorySlotsHandlerDataPath = "Datas/Inventory Slots Handler Data";
 
+        [SerializeField] private ArtsToggler _artsToggler;
+        [SerializeField] private SettingsHandler _settingsHandler;
+
         public override void InstallBindings()
         {
             BindCharacterInput();
             BindCharacterData();
-            BindCharacter();
+            BindSettingsHandler();
             BindInventory();
+            BindCharacter();
+            BindArtsHandler();
             BindStorageService();
         }
 
         private void BindCharacterInput()
         {
             Container.BindInterfacesAndSelfTo<CharacterInput>()
+                .AsSingle();
+        }
+
+        private void BindSettingsHandler()
+        {
+            Container.Bind<SettingsHandler>()
+                .FromInstance(_settingsHandler)
                 .AsSingle();
         }
 
@@ -69,6 +83,13 @@ namespace Scripts.Levels
             Container.Bind<ItemsCaller>()
                 .AsSingle()
                 .NonLazy();
+        }
+
+        private void BindArtsHandler()
+        {
+            Container.Bind<ArtsToggler>()
+                .FromInstance(_artsToggler)
+                .AsSingle();
         }
 
         private void BindStorageService()

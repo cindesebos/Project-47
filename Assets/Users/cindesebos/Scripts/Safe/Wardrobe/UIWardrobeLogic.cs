@@ -4,6 +4,7 @@ using TMPro;
 using System;
 using Zenject;
 using Scripts.UI;
+using Scripts.Sounds;
 
 namespace Scripts.Safe.Wardrobe
 {
@@ -16,15 +17,18 @@ namespace Scripts.Safe.Wardrobe
         [SerializeField] private LockPinRotator[] _lockPinsRotator;
 
         [SerializeField] private int[] _currentCode = new int[3];
+        [SerializeField] private AudioSource _audioSource;
 
         private CursorHandler _cursorHandler;
         private Character.Character _character;
+        private SoundsContainer _soundsContainer;
 
         [Inject]
-        private void Construct(CursorHandler cursorHandler, Character.Character character)
+        private void Construct(CursorHandler cursorHandler, Character.Character character, SoundsContainer soundsContainer)
         {
             _cursorHandler = cursorHandler;
             _character = character;
+            _soundsContainer = soundsContainer;
         }
 
         public void OnOpen()
@@ -40,6 +44,8 @@ namespace Scripts.Safe.Wardrobe
         public void UpdateCurrentCode(int index, int value)
         {
             _currentCode[index] = value;
+
+            _audioSource.PlayOneShot(_soundsContainer.RotatingLockPinSound);
 
             if (IsCodeCorrect()) Unlock();
         }
@@ -57,6 +63,8 @@ namespace Scripts.Safe.Wardrobe
         private void Unlock()
         {
             Close();
+
+            _audioSource.PlayOneShot(_soundsContainer.InputCurrentCodeSound);
 
             OnWardrobeOpened?.Invoke();
         }

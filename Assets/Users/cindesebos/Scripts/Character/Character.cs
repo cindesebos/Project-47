@@ -5,6 +5,7 @@ using UnityEngine;
 using Cysharp.Threading.Tasks;
 using Zenject;
 using Scripts.Items.Gun;
+using Scripts.Sounds;
 
 namespace Scripts.Character
 {
@@ -15,6 +16,7 @@ namespace Scripts.Character
         [SerializeField] private bool _haveGun = false;
 
         [field: SerializeField] public GunShooter GunShooter { get; private set; }
+        [field: SerializeField] public AudioSource AudioSource { get; private set; }
         [SerializeField] private Camera _targetCamera;
         [SerializeField] private CharacterMovement _movement;
         [SerializeField] private CharacterController _controller;
@@ -27,10 +29,12 @@ namespace Scripts.Character
         private IInventory _inventory;
         private ArtsToggler _artsToggler;
         private HudView _hudView;
+        private SoundsContainer _soundsContainer;
 
         private void OnValidate()
         {
             _movement ??= GetComponent<CharacterMovement>();
+            AudioSource ??= GetComponentInChildren<AudioSource>();
             _controller ??= GetComponent<CharacterController>();
             _gravityHandler ??= GetComponent<CharacterGravityHandler>();
             _itemProvider ??= GetComponentInChildren<CharacterItemProvider>();
@@ -38,13 +42,15 @@ namespace Scripts.Character
         }
 
         [Inject]
-        private void Construct(CharacterInput input, CharacterData data, IInventory inventory, ArtsToggler artsToggler, HudView hudView)
+        private void Construct(CharacterInput input, CharacterData data, IInventory inventory,
+        ArtsToggler artsToggler, HudView hudView, SoundsContainer soundsContainer)
         {
             _input = input;
             _data = data;
             _inventory = inventory;
             _artsToggler = artsToggler;
             _hudView = hudView;
+            _soundsContainer = soundsContainer;
         }
 
         private void OnEnable()
@@ -98,7 +104,18 @@ namespace Scripts.Character
 
             _hudView.SetGunPanelActive(true);
 
-            GunShooter.Initialize(_hudView, _input);
+            GunShooter.Initialize(_hudView, _input, _soundsContainer, AudioSource);
+        }
+
+        public void AllowRun() => _movement.AllowRun();
+
+        public void ChangeMouseSensitivity(float mouseSensitivity)
+        {
+            Debug.Log($"mouseSensitivity: {mouseSensitivity}   _data.MouseSensativity: {_data.MouseSensativity}");
+
+            _data.MouseSensativity = mouseSensitivity;
+
+            _movement.ChangeMouseSensitivity(mouseSensitivity);
         }
 
         public void ToggleGun()

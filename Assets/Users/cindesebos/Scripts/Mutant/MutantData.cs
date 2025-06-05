@@ -7,6 +7,9 @@ namespace Scripts.Mutant
     {
         [field: SerializeField] public float WalkSpeed { get; private set; } = 5f;
         [field: SerializeField] public float Health { get; private set; } = 50f;
+        [field: SerializeField] public float Damage { get; private set; } = 1f;
+        [field: SerializeField] public float DetectionRadius { get; private set; } = 1f;
+        [field: SerializeField] public float AttackRadius { get; private set; } = 1.25f;
 
         [field: SerializeField] public float HeadDamageMultiplier { get; private set; } = 3f;
         [field: SerializeField] public float BodyDamageMultiplier { get; private set; } = 1f;

@@ -10,7 +10,6 @@ namespace Scripts.Safe.Wardrobe
         [SerializeField] private int _currentValue = 0;
         [Space]
 
-        [SerializeField] private int _maxValue = 10;
         [SerializeField] private float _rotationStep = 40f;
 
         [SerializeField] private UIWardrobeLogic _uiWardrobeLogic;

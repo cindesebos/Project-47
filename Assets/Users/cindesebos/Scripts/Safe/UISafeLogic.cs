@@ -4,6 +4,7 @@ using TMPro;
 using System;
 using Zenject;
 using Scripts.UI;
+using Scripts.Sounds;
 
 namespace Scripts.Safe
 {
@@ -12,28 +13,31 @@ namespace Scripts.Safe
         public event Action OnSafeOpened;
 
         private const int MaxNumberOfDigits = 4;
-        private const string TargetInputValue = "2804";
         private const string ErrorText = "Error";
 
         private int _currentInputIndex = 0;
 
+        [SerializeField] private string _targetInputValue = "2804";
         [SerializeField] private GameObject _view;
 
         [SerializeField] private Button[] _digitButtons;
         [SerializeField] private Button _clearButton;
         [SerializeField] private Button _summitButton;
         [SerializeField] private TextMeshProUGUI _displayText;
+        [SerializeField] private AudioSource _audioSource;
 
         private string _currentInputValue = "";
 
         private CursorHandler _cursorHandler;
         private Character.Character _character;
+        private SoundsContainer _soundsContainer;
 
         [Inject]
-        private void Construct(CursorHandler cursorHandler, Character.Character character)
+        private void Construct(CursorHandler cursorHandler, Character.Character character, SoundsContainer soundsContainer)
         {
             _cursorHandler = cursorHandler;
             _character = character;
+            _soundsContainer = soundsContainer;
         }
 
         private void Start()
@@ -63,7 +67,11 @@ namespace Scripts.Safe
             {
                 int digit = i;
 
-                _digitButtons[i].onClick.AddListener(() => OnDigitButtonClicked(digit));
+                _digitButtons[i].onClick.AddListener(() =>
+                {
+                    OnDigitButtonClicked(digit);
+                    _audioSource.PlayOneShot(_soundsContainer.InputingSafeInputSound);
+                });
             }
         }
 
@@ -76,17 +84,21 @@ namespace Scripts.Safe
         {
             _summitButton.onClick.AddListener(() =>
             {
-                if (_currentInputValue == TargetInputValue)
+                if (_currentInputValue == _targetInputValue)
                 {
                     Debug.Log("Input is correct.");
 
                     OnSafeOpened?.Invoke();
+
+                    _audioSource.PlayOneShot(_soundsContainer.InputedCorrectSafeCodeSound);
 
                     Close();
                 }
                 else
                 {
                     Debug.LogWarning("Input is incorrect.");
+
+                    _audioSource.PlayOneShot(_soundsContainer.InputedIncorrectSafeCodeSound);
 
                     OnClearButtonClicked();
 
@@ -97,6 +109,8 @@ namespace Scripts.Safe
 
         private void OnClearButtonClicked()
         {
+            _audioSource.PlayOneShot(_soundsContainer.InputingSafeInputSound);
+            
             _currentInputValue = "";
 
             _currentInputIndex = 0;

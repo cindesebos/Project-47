@@ -1,7 +1,10 @@
 using System;
 using System.Collections.Generic;
 using Scripts.Items;
+using Scripts.Sounds;
 using UnityEngine;
+using Scripts.Character;
+using Zenject;
 
 namespace Scripts.Character.Inventory
 {
@@ -9,7 +12,21 @@ namespace Scripts.Character.Inventory
     {
         public event Action<ItemData> OnItemPickedUp;
 
+        private readonly SoundsContainer _soundsContainer;
+        private readonly LazyInject<Character> _character;
+
         private List<ItemStack> _items = new();
+
+        [Inject]
+        public Inventory(SoundsContainer soundsContainer, LazyInject<Character> character)
+        {
+            Debug.Log("Started Injecting");
+
+            _soundsContainer = soundsContainer;
+            _character = character;
+
+            Debug.Log($"Injected {_soundsContainer}  {_character}");
+        }
 
         public bool TryAddItem(ItemData item)
         {
@@ -21,6 +38,7 @@ namespace Scripts.Character.Inventory
             else _items.Add(new ItemStack(item));
 
             OnItemPickedUp?.Invoke(item);
+            _character.Value.AudioSource.PlayOneShot(_soundsContainer.ItemPickupSound);
             return true;
         }
 

@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4871d222c8ae37bfcac1799436e77888, type: 3}
   m_Name: BrickData
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: Brick
+  <Name>k__BackingField: "\u041A\u0438\u0440\u043F\u0438\u0447"
   <Id>k__BackingField: 4
   <OutlineWidth>k__BackingField: 5

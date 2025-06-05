@@ -5,23 +5,39 @@ using Scripts.Items;
 using UnityEngine.InputSystem;
 using System;
 using Scripts.Props;
+using Scripts.Sounds;
+using Scripts.Utils;
+using Cysharp.Threading.Tasks;
 
 namespace Scripts.Items.Types
 {
     [RequireComponent(typeof(Outline))]
     public class GateAccessMachine : InteractableItem
     {
+        private const float DelayBeforeDoorOpening = 5f;
+
         [SerializeField] private ClosedDoor _door;
         [SerializeField] private Outline _outline;
+        [SerializeField] private AudioSource _audioSource;
 
         private bool _canOpenDoor = false;
         private bool _isUsed = false;
 
-        [Inject] private CharacterInput _characterInput;
+        private CharacterInput _characterInput;
+        private SoundsContainer _soundsContainer;
+
+        [Inject]
+        private void Construct(SoundsContainer soundsContainer, CharacterInput characterInput)
+        {
+            _characterInput = characterInput; 
+            _soundsContainer = soundsContainer;
+        }
 
         private void OnValidate()
         {
             _outline ??= GetComponent<Outline>();
+            _audioSource ??= GetComponent<AudioSource>();
+
             if (_outline.OutlineWidth != 0) _outline.OutlineWidth = 0;
         }
 
@@ -36,9 +52,11 @@ namespace Scripts.Items.Types
 
         private void OnTriggerEnter(Collider collider)
         {
+            if (_isUsed) return;
+            
             if (!collider.gameObject.GetComponent<Character.Character>())
 
-            _outline.OutlineWidth = Data.OutlineWidth;
+                _outline.OutlineWidth = Data.OutlineWidth;
 
             if (_canOpenDoor) _characterInput.Interaction.Use.performed += Use;
         }
@@ -48,6 +66,16 @@ namespace Scripts.Items.Types
             if (_isUsed) return;
 
             _isUsed = true;
+            _audioSource.PlayOneShot(_soundsContainer.InteractingWithGateAccessMachineSound);
+
+            _outline.OutlineWidth = 0;
+
+            OpenDoorWithDelay().Forget();
+        }
+
+        private async UniTaskVoid OpenDoorWithDelay()
+        {
+            await UniTask.Delay(TimeSpan.FromSeconds(DelayBeforeDoorOpening));
 
             _door.Open();
         }
@@ -56,7 +84,7 @@ namespace Scripts.Items.Types
         {
             if (!collider.gameObject.GetComponent<Character.Character>())
 
-            _outline.OutlineWidth = 0;
+            _outline.OutlineWidth = 0; 
 
             if (_canOpenDoor) _characterInput.Interaction.Use.performed -= Use;
         }

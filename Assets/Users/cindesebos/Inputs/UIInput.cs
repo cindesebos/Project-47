@@ -35,6 +35,15 @@ public partial class @UIInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""665d9807-bf1b-4aad-af47-cd9cc771c0ad"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -59,6 +68,17 @@ public partial class @UIInput: IInputActionCollection2, IDisposable
                     ""action"": ""Hide"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""667e13b9-153e-4f7c-960b-1431d1724f03"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -68,6 +88,7 @@ public partial class @UIInput: IInputActionCollection2, IDisposable
         // Interaction
         m_Interaction = asset.FindActionMap("Interaction", throwIfNotFound: true);
         m_Interaction_Hide = m_Interaction.FindAction("Hide", throwIfNotFound: true);
+        m_Interaction_Pause = m_Interaction.FindAction("Pause", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -130,11 +151,13 @@ public partial class @UIInput: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Interaction;
     private List<IInteractionActions> m_InteractionActionsCallbackInterfaces = new List<IInteractionActions>();
     private readonly InputAction m_Interaction_Hide;
+    private readonly InputAction m_Interaction_Pause;
     public struct InteractionActions
     {
         private @UIInput m_Wrapper;
         public InteractionActions(@UIInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @Hide => m_Wrapper.m_Interaction_Hide;
+        public InputAction @Pause => m_Wrapper.m_Interaction_Pause;
         public InputActionMap Get() { return m_Wrapper.m_Interaction; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -147,6 +170,9 @@ public partial class @UIInput: IInputActionCollection2, IDisposable
             @Hide.started += instance.OnHide;
             @Hide.performed += instance.OnHide;
             @Hide.canceled += instance.OnHide;
+            @Pause.started += instance.OnPause;
+            @Pause.performed += instance.OnPause;
+            @Pause.canceled += instance.OnPause;
         }
 
         private void UnregisterCallbacks(IInteractionActions instance)
@@ -154,6 +180,9 @@ public partial class @UIInput: IInputActionCollection2, IDisposable
             @Hide.started -= instance.OnHide;
             @Hide.performed -= instance.OnHide;
             @Hide.canceled -= instance.OnHide;
+            @Pause.started -= instance.OnPause;
+            @Pause.performed -= instance.OnPause;
+            @Pause.canceled -= instance.OnPause;
         }
 
         public void RemoveCallbacks(IInteractionActions instance)
@@ -174,5 +203,6 @@ public partial class @UIInput: IInputActionCollection2, IDisposable
     public interface IInteractionActions
     {
         void OnHide(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
     }
 }
