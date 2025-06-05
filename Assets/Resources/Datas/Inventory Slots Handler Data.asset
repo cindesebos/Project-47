@@ -14,4 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <GunItemName>k__BackingField: "\u041F\u0438\u0441\u0442\u043E\u043B\u0435\u0442"
   <AmmoItemName>k__BackingField: "\u041F\u0430\u0442\u0440\u043E\u043D\u044B"
-  <AmmoAmount>k__BackingField: 20
+  <AmmoAmount>k__BackingField: 10
+  <FirstAidKitItemName>k__BackingField: "\u0410\u043F\u0442\u0435\u0447\u043A\u0430"
+  <FirstAidKitAmount>k__BackingField: 1
