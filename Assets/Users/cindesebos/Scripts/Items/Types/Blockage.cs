@@ -17,6 +17,7 @@ namespace Scripts.Items.Types
         [SerializeField] private AudioSource _audioSource;
 
         private bool _canInteract = false;
+        private bool _isUsed = false;
 
         private CharacterInput _characterInput;
         private SoundsContainer _soundsContainer;
@@ -55,6 +56,10 @@ namespace Scripts.Items.Types
 
         private void Use(InputAction.CallbackContext context)
         {
+            if(_isUsed) return;
+
+             _isUsed = true;
+
             _parent.SetActive(false);
             _audioSource.PlayOneShot(_soundsContainer.ExplosionSound);
         }
@@ -62,7 +67,7 @@ namespace Scripts.Items.Types
         private void OnTriggerExit(Collider collider)
         {
             if(!collider.gameObject.GetComponent<Character.Character>())
-            
+
             _outline.OutlineWidth = 0;
 
             if (_canInteract) _characterInput.Interaction.Use.performed -= Use;
