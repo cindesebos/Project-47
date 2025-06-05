@@ -1,3 +1,4 @@
+using System.Collections;
 using Scripts.Items.Simply;
 using Scripts.UI;
 using UnityEngine;
@@ -12,11 +13,12 @@ namespace Scripts.Character
 
         [field: SerializeField] public float Health { get; private set; }
         [SerializeField] private bool _isFirstLevel;
+        private float delay = 3;
 
         private FirstAidKitLogic _firstAidKitLogic;
         private HudView _hudView;
         private bool _isDead;
-
+        
         [Inject]
         private void Construct(FirstAidKitLogic firstAidKitLogic, HudView hudView)
         {
@@ -41,11 +43,21 @@ namespace Scripts.Character
             {
                 _isDead = true;
 
-                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-                
+                StartCoroutine(DeadDelay());
             }
 
             _hudView.SetHealth(Health);
+        }
+
+        private IEnumerator DeadDelay()
+        {
+            _hudView._deadDisplayer.SetActive(true);
+
+            yield return new WaitForSeconds(delay);
+            
+            _hudView._deadDisplayer.SetActive(false);
+            
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 
         public void OnSetHealth(float health)

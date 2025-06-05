@@ -59,6 +59,7 @@ MonoBehaviour:
   _ammoAmountDisplay: {fileID: 2950576339897198355}
   _medKitsPanel: {fileID: 1271341914405888903}
   _medKitsAmountDisplay: {fileID: 3051944116304209738}
+  _deadDisplayer: {fileID: 7381012847164457793}
 --- !u!1 &830206894660638878
 GameObject:
   m_ObjectHideFlags: 0
@@ -655,7 +656,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1083526185819877711
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1507,7 +1508,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2001856577201701060
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2178,15 +2179,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 5ec21977ee48a7149a6765fac413d0d4, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
